@@ -1,0 +1,43 @@
+name: Bug report
+description: Something Topside did, or didn't do
+labels: [bug]
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - macOS
+        - Arch Linux
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Topside version
+      description: "macOS: Settings > About. Arch: topside --version."
+    validations:
+      required: true
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      multiple: true
+      options:
+        - Claude Code
+        - Codex CLI
+        - pi
+        - omp
+        - Not about an agent
+  - type: input
+    id: terminal
+    attributes:
+      label: Terminal
+      description: WezTerm, Orca, iTerm2, Terminal.app, Ghostty, tmux inside one of them…
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      description: Steps help. Leave out anything from your prompts or code you wouldn't post in public.
+    validations:
+      required: true
