@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topside: every agent, one notch</title>
+<meta name="description" content="An island on the Mac's notch for Claude Code, Codex CLI, pi and omp. See which session wants an answer, give it from the notch, jump to its terminal.">
+<meta property="og:title" content="Topside: every agent, one notch">
+<meta property="og:description" content="An island on the Mac's notch for Claude Code, Codex CLI, pi and omp.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://topside.ducban.com/">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+:root {
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --bg: #f6f3ec; --fg: #1d1b18; --muted: #6f6a60; --rule: #d9d3c5; --panel: #ebe6da;
+  --working: #2f63e0; --waiting: #c2600a; --done: #1f8f43;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12141a; --fg: #e6e2d8; --muted: #8d897f; --rule: #2a2d36; --panel: #1b1e26;
+    --working: #4d85ff; --waiting: #ff8c29; --done: #40d96b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12141a; --fg: #e6e2d8; --muted: #8d897f; --rule: #2a2d36; --panel: #1b1e26;
+  --working: #4d85ff; --waiting: #ff8c29; --done: #40d96b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--serif); font-size: 20px; line-height: 1.55;
+  padding: 0 max(16px, env(safe-area-inset-right)) 96px max(16px, env(safe-area-inset-left)); }
+img { max-width: 100%; display: block; }
+.col { max-width: 760px; margin: 0 auto; padding-top: 64px; }
+
+/* The mail header. */
+.envelope { font-family: var(--mono); font-size: 13px; line-height: 1.9; color: var(--muted);
+  border-bottom: 1px solid var(--rule); padding-bottom: 20px; margin-bottom: 44px; }
+.envelope div { display: grid; grid-template-columns: 9ch minmax(0, 1fr); }
+.envelope b { font-weight: 500; }
+.envelope .subject span { color: var(--fg); }
+
+/* The logotype sits on black in both themes, as it does on the island. */
+.mark { background: #000; border-radius: 14px; padding: 28px 24px; margin: 0 0 40px; display: flex; justify-content: center; }
+.logotype { width: min(290px, 100%); height: auto; display: block; }
+
+p { margin: 0 0 1.1em; text-wrap: pretty; }
+h2 { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); margin: 56px 0 16px; }
+code, kbd { font-family: var(--mono); font-size: .8em; background: var(--panel); padding: 1px 5px; border-radius: 4px; }
+a { color: inherit; text-underline-offset: 3px; }
+
+/* A render of the island, cut out of its backdrop. */
+figure { margin: 36px 0; }
+.shot { overflow: hidden; background: #000; border-radius: 0 0 26px 26px; position: relative; }
+.shot img { position: absolute; top: 0; left: -4.6875%; width: 109.375%; max-width: none; }
+.shot.list { aspect-ratio: 1280 / 655; }
+.shot.permission { aspect-ratio: 1280 / 752; }
+figcaption { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+.cmd { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 14px; background: var(--panel);
+  border-radius: 8px; padding: 12px 14px; margin: 0 0 1.2em; overflow-x: auto; }
+.cmd code { background: none; padding: 0; font-size: 14px; white-space: nowrap; flex: 1; }
+.cmd code::before { content: "$ "; color: var(--muted); }
+.cmd button { font: inherit; font-size: 12px; cursor: pointer; border-radius: 5px; padding: 4px 10px; flex: none;
+  background: transparent; color: var(--muted); border: 1px solid var(--rule); }
+.cmd button:hover { color: var(--fg); border-color: var(--muted); }
+
+.sig { margin-top: 48px; font-style: italic; }
+
+/* Below the letter: the reference part, in mono. */
+.reference { font-family: var(--mono); font-size: 14px; line-height: 1.6; }
+.keys { margin: 0; display: grid; grid-template-columns: 8ch minmax(0, 1fr); gap: 8px 2ch; }
+.keys dt { color: var(--fg); }
+.keys dd { margin: 0; color: var(--muted); }
+.keys kbd { font-size: 13px; }
+
+.specs { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px;
+  background: var(--rule); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+.specs div { background: var(--bg); padding: 18px; min-width: 0; }
+.specs h3 { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 8px; }
+.specs p { margin: 0; color: var(--muted); font-size: 13px; }
+.specs b { color: var(--fg); font-weight: 500; }
+
+.linux { margin-top: 40px; border: 1px dashed var(--rule); border-radius: 12px; padding: 18px 20px; color: var(--muted); }
+.linux b { color: var(--fg); font-weight: 500; }
+.linux code { font-size: 13px; }
+
+footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule);
+  margin-top: 56px; padding-top: 18px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<main class="col">
+  <header class="envelope">
+    <div><b>Date:</b><span>Tue, 17 Nov 2026</span></div>
+    <div><b>From:</b><span>Nguyen Duc Ban</span></div>
+    <div><b>To:</b><span>anyone with more than one coding agent open</span></div>
+    <div class="subject"><b>Subject:</b><span>Every agent, one notch.</span></div>
+  </header>
+
+  <div class="mark"><svg class="logotype" viewBox="0 0 41.0 7" role="img" aria-label="Topside" fill="#f5f5f5" shape-rendering="crispEdges"><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM2 1h1v1h-1zM2 2h1v1h-1zM2 3h1v1h-1zM2 4h1v1h-1zM2 5h1v1h-1zM2 6h1v1h-1z"/><path d="M7.5 0h1v1h-1zM8.5 0h1v1h-1zM9.5 0h1v1h-1zM6.5 1h1v1h-1zM10.5 1h1v1h-1zM6.5 2h1v1h-1zM10.5 2h1v1h-1zM6.5 3h1v1h-1zM10.5 3h1v1h-1zM6.5 4h1v1h-1zM10.5 4h1v1h-1zM6.5 5h1v1h-1zM10.5 5h1v1h-1zM7.5 6h1v1h-1zM8.5 6h1v1h-1zM9.5 6h1v1h-1z"/><path d="M13.0 0h1v1h-1zM14.0 0h1v1h-1zM15.0 0h1v1h-1zM16.0 0h1v1h-1zM13.0 1h1v1h-1zM17.0 1h1v1h-1zM13.0 2h1v1h-1zM17.0 2h1v1h-1zM13.0 3h1v1h-1zM14.0 3h1v1h-1zM15.0 3h1v1h-1zM16.0 3h1v1h-1zM13.0 4h1v1h-1zM13.0 5h1v1h-1zM13.0 6h1v1h-1z"/><path d="M20.5 0h1v1h-1zM21.5 0h1v1h-1zM22.5 0h1v1h-1zM23.5 0h1v1h-1zM19.5 1h1v1h-1zM19.5 2h1v1h-1zM20.5 3h1v1h-1zM21.5 3h1v1h-1zM22.5 3h1v1h-1zM23.5 4h1v1h-1zM23.5 5h1v1h-1zM19.5 6h1v1h-1zM20.5 6h1v1h-1zM21.5 6h1v1h-1zM22.5 6h1v1h-1z"/><circle cx="27.0" cy="1.0" r="1" fill="#4d85ff"/><circle cx="27.0" cy="3.5" r="1" fill="#ff8c29"/><circle cx="27.0" cy="6.0" r="1" fill="#40d96b"/><path d="M29.5 0h1v1h-1zM30.5 0h1v1h-1zM31.5 0h1v1h-1zM32.5 0h1v1h-1zM29.5 1h1v1h-1zM33.5 1h1v1h-1zM29.5 2h1v1h-1zM33.5 2h1v1h-1zM29.5 3h1v1h-1zM33.5 3h1v1h-1zM29.5 4h1v1h-1zM33.5 4h1v1h-1zM29.5 5h1v1h-1zM33.5 5h1v1h-1zM29.5 6h1v1h-1zM30.5 6h1v1h-1zM31.5 6h1v1h-1zM32.5 6h1v1h-1z"/><path d="M36.0 0h1v1h-1zM37.0 0h1v1h-1zM38.0 0h1v1h-1zM39.0 0h1v1h-1zM40.0 0h1v1h-1zM36.0 1h1v1h-1zM36.0 2h1v1h-1zM36.0 3h1v1h-1zM37.0 3h1v1h-1zM38.0 3h1v1h-1zM39.0 3h1v1h-1zM36.0 4h1v1h-1zM36.0 5h1v1h-1zM36.0 6h1v1h-1zM37.0 6h1v1h-1zM38.0 6h1v1h-1zM39.0 6h1v1h-1zM40.0 6h1v1h-1z"/></svg></div>
+
+  <p>A coding agent is patient in the worst way. It will sit on <code>Allow this command?</code> for as long as it takes, without a sound, in a tab three windows down, while I admire how productive I'm being in another one.</p>
+  <p>The agents were never the slow part. I was, and specifically the part of me that had to notice. Checking tabs is polling, and people are bad at polling: we do it constantly and get nothing else done, or we forget and find the question after lunch.</p>
+  <p>So I gave the agents an interrupt line and put it on the one strip of screen nobody was using. The notch already costs every MacBook a rectangle of pixels. Topside moves in there: a black island with a dot per session. Blue is working, orange wants an answer, green is finished. Hover for the list.</p>
+
+  <figure>
+    <div class="shot list"><img src="img/list.png" alt="The open island listing four sessions from Claude Code, pi and omp, each with its status and last line."></div>
+    <figcaption>Four sessions, three agents. The header shows what the session under the mouse has cost.</figcaption>
+  </figure>
+
+  <p>It reads Claude Code, Codex CLI, pi and omp. When one of them wants to run a command or touch a file, the request opens on the island with the diff attached, and <kbd>^Y</kbd> or <kbd>^N</kbd> settles it. The tab stays wherever it was.</p>
+
+  <figure>
+    <div class="shot permission"><img src="img/permission.png" alt="A permission card: Allow Edit on src/config.ts with a diff, and Deny, Always, Allow and Auto mode buttons."></div>
+    <figcaption>A permission request from Claude Code, answered from the notch.</figcaption>
+  </figure>
+
+  <p>For the times you do want the tab, <kbd>^J</kbd> or a click takes you there. Topside finds it the way you'd debug it: up the session's process tree until it hits a terminal, then the pane, in WezTerm, Orca, iTerm2, Terminal.app and tmux. Ghostty gets the window and an apology, since it has no way to pick a tab from outside yet.</p>
+
+  <h2>How it works</h2>
+  <p>The design is boring on purpose. Nothing runs beside the app and nothing leaves the machine. Each agent's hook starts the app's own binary in hook mode, which writes one JSON message to a Unix socket and exits. Sessions live in SQLite under <code>~/Library/Application Support/Topside</code>.</p>
+  <p>Installing the hooks adds eight entries to <code>~/.claude/settings.json</code>, leaves yours alone, and backs the file up first, because I've had a tool helpfully rewrite my config too. Quit Topside and the agents go back to asking in the terminal, as if it had never been there.</p>
+
+  <h2>Install</h2>
+  <div class="cmd"><code>curl -fsSL https://topside.ducban.com/install.sh | sh</code><button type="button">copy</button></div>
+  <p>macOS 14 or later, Apple silicon. No <code>sudo</code>.</p>
+  <p>You're right to squint at <code>curl | sh</code>. The reason is dull: I have no Developer ID, so the app is ad-hoc signed, and a zip that arrives through a browser gets quarantined and refused by Gatekeeper. <code>curl</code> doesn't set that flag. <a href="install.sh">The script</a> is under 90 lines, so read it first. It checks the download against its SHA-256, verifies the signature, and swaps the new app in only once the copy is whole.</p>
+  <p>Then hover the island, click the gear, and switch your agents on under Integrations. To remove it, switch them off there, quit, and delete <code>/Applications/Topside.app</code>.</p>
+
+  <p class="sig">Ban</p>
+  <p>P.S. If the session's terminal is already in front when a turn ends, Topside says nothing. You were looking at it.</p>
+
+  <section class="reference">
+    <h2>Keys</h2>
+    <dl class="keys">
+      <dt><kbd>^Y</kbd></dt><dd>allow the request on the open card</dd>
+      <dt><kbd>^N</kbd></dt><dd>deny it</dd>
+      <dt><kbd>^A</kbd></dt><dd>always allow (Claude Code only)</dd>
+      <dt><kbd>^J</kbd></dt><dd>jump to the session's terminal</dd>
+      <dt><kbd>esc</kbd></dt><dd>close the card</dd>
+    </dl>
+
+    <h2>In short</h2>
+    <div class="specs">
+      <div><h3 style="color:var(--working)">Watch</h3><p>One dot per session. Blue works, orange waits on you, green is done. Rows show the prompt, the file being edited and the last reply.</p></div>
+      <div><h3 style="color:var(--waiting)">Answer</h3><p>Permission requests open as a card with the diff. <b>^Y</b> allows, <b>^N</b> denies. Questions get their options as buttons.</p></div>
+      <div><h3 style="color:var(--done)">Jump</h3><p><b>^J</b> or a click brings the session's pane forward in WezTerm, Orca, iTerm2, Terminal.app and tmux.</p></div>
+      <div><h3>Wiring</h3><p>Hooks run the app's binary, which writes JSON to a Unix socket. SQLite on disk. No daemon, no account, no other socket.</p></div>
+      <div><h3>Your config</h3><p>Installing hooks keeps the ones you had and backs the file up first. With the app closed, the agents ask in the terminal as before.</p></div>
+      <div><h3>Why a script</h3><p>No Developer ID, so the app is ad-hoc signed. A browser download gets quarantined; curl's doesn't. The script checks a SHA-256 and the signature.</p></div>
+    </div>
+
+    <div class="linux"><b>Arch Linux: next.</b> The same island as a Quickshell pill on Hyprland or a DankMaterialShell bar widget. <code>yay -S topside-arch</code>, once it's out.</div>
+  </section>
+
+  <footer>
+    Topside 0.1.0 · built on agent-notch (MIT) · the agents' logos belong to their owners and only say which agent is running
+  </footer>
+</main>
+
+<script>
+// ?theme=light or ?theme=dark overrides the system's choice, for a link that should look one way.
+const theme = new URLSearchParams(location.search).get("theme");
+if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+
+document.querySelectorAll(".cmd button").forEach(button => button.addEventListener("click", async () => {
+  const command = button.previousElementSibling;
+  try { await navigator.clipboard.writeText(command.textContent); button.textContent = "copied"; }
+  catch { getSelection().selectAllChildren(command); }
+  setTimeout(() => { button.textContent = "copy"; }, 1500);
+}));
+</script>
+</body>
+</html>
