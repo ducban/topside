@@ -201,7 +201,7 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p>For the times you do want the tab, <kbd>^J</kbd> or a click takes you there. Topside finds it the way you'd debug it: up the session's process tree until it hits a terminal, then the pane, in WezTerm, Orca, iTerm2, Terminal.app and tmux. Ghostty gets the window and an apology, since it has no way to pick a tab from outside yet.</p>
 
   <h2>How it works</h2>
-  <aside class="note"><b>Wiring</b>Hooks run the app's binary, which writes JSON to a Unix socket. SQLite on disk. No daemon, no account, no other socket.</aside>
+  <aside class="note"><b>Wiring</b>Hooks run the app's binary, which writes JSON to a Unix socket. SQLite on disk. No daemon, no account, no other socket. <a href="docs/#agents">What each agent gets</a>.</aside>
   <p>The design is boring on purpose. Nothing runs beside the app and nothing leaves the machine. Each agent's hook starts the app's own binary in hook mode, which writes one JSON message to a Unix socket and exits. Sessions live in SQLite under <code>~/Library/Application Support/Topside</code>.</p>
   <aside class="note"><b>Your config</b>Installing hooks keeps the ones you had and backs the file up first. With the app closed, the agents ask in the terminal as before.</aside>
   <p>Installing the hooks adds eight entries to <code>~/.claude/settings.json</code>, leaves yours alone, and backs the file up first, because I've had a tool helpfully rewrite my config too. Quit Topside and the agents go back to asking in the terminal, as if it had never been there.</p>
@@ -219,7 +219,7 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p>P.P.S. Arch Linux is next: the same island as a Quickshell pill on Hyprland or a DankMaterialShell bar widget.</p>
 
   <footer>
-    Topside 0.1.0 · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
+    Topside 0.1.0 · <a href="docs/">docs</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
     Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running.<br>
     This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
   </footer>
