@@ -1,0 +1,11 @@
+name: Idea for macOS
+description: Something Topside on macOS could do
+labels: [idea, macos]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: The idea
+      description: What you were doing when you wanted it says more than the feature's name.
+    validations:
+      required: true

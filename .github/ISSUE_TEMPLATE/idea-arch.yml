@@ -1,6 +1,6 @@
-name: Idea
-description: Something Topside could do
-labels: [idea]
+name: Idea for Arch Linux
+description: Something Topside on Arch Linux could do
+labels: [idea, arch]
 body:
   - type: textarea
     id: idea
