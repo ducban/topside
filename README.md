@@ -35,6 +35,7 @@ The Mac app's source is closed. This repo holds what's public:
 | `index.html`, `img/`, `og.png` | the site at topside.ducban.com (GitHub Pages serves the repo root) |
 | `arch/`, `og-arch.png` | the Arch Linux page at topside.ducban.com/arch/ |
 | `install.sh` | the macOS installer the site points at |
+| `scripts/bump.sh` | `scripts/bump.sh mac\|arch <version>` after a release: rewrites every `<span data-version>` and that page's `softwareVersion`, then lists lines that still name the old version |
 | `meta/og.html` | the source of `og.png`: open it at 1200 by 630 and take a screenshot |
 | Releases | `Topside.zip` and `Topside.zip.sha256` for macOS; release notes for Arch (`arch-v*` tags; the package itself is on npm and the AUR) |
 | Issues | bugs and ideas for both platforms |
