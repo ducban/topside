@@ -20,7 +20,7 @@ To remove Topside: switch its integrations off in Settings, quit it, and delete 
 sudo npm install -g topside-arch
 ```
 
-Then copy its systemd unit, enable it, and run `topside hooks install` and `topside setup`; the page below has the lines. An AUR package follows once the AUR takes new accounts again. The letter for Linux is at **https://topside.ducban.com/arch/**. Unlike the Mac app, the Arch package is MIT and ships its JavaScript and QML as they are.
+Then run `topside login on` (it writes the daemon's unit and starts it), `topside hooks install` and `topside setup`. To upgrade, run the npm line again and `topside setup`. An AUR package follows once the AUR takes new accounts again. The letter for Linux is at **https://topside.ducban.com/arch/**. Unlike the Mac app, the Arch package is MIT and ships its JavaScript and QML as they are.
 
 ## Something broke, or you have an idea
 

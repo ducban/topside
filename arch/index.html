@@ -39,7 +39,7 @@
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Arch Linux",
   "license": "https://opensource.org/licenses/MIT",
-  "softwareVersion": "0.1.1",
+  "softwareVersion": "0.1.2",
   "author": { "@type": "Person", "name": "Nguyen Duc Ban" }
 }
 </script>
@@ -219,23 +219,22 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <div class="cmd"><code>sudo pacman -S nodejs npm quickshell</code><button type="button">copy</button></div>
   <div class="cmd"><code>sudo npm install -g topside-arch</code><button type="button">copy</button></div>
   <p>Node 26 or later. Then, as yourself rather than root:</p>
-  <div class="cmd"><code>mkdir -p ~/.config/systemd/user &amp;&amp; cp "$(npm root -g)/topside-arch/contrib/systemd/topside.service" ~/.config/systemd/user/</code><button type="button">copy</button></div>
-  <div class="cmd"><code>systemctl --user enable --now topside</code><button type="button">copy</button></div>
+  <div class="cmd"><code>topside login on</code><button type="button">copy</button></div>
   <div class="cmd"><code>topside hooks install</code><button type="button">copy</button></div>
   <div class="cmd"><code>topside setup</code><button type="button">copy</button></div>
   <aside class="note"><b>Other agents</b><code>topside hooks install codex</code>, <code>pi</code> or <code>omp</code>. For Codex, run <code>/hooks</code> once and trust the entries.</aside>
-  <p>npm doesn't do services, so the first line puts the daemon's unit where systemd looks, and the second starts it now and at login. Then come Claude Code's hooks; name <code>codex</code>, <code>pi</code> or <code>omp</code> for the others. The last line puts Topside in your bar. Without SekaiPop or DMS, run <code>topside pill</code> instead.</p>
+  <p>npm doesn't do services, so the first line writes the daemon's unit for systemd, pointed at the <code>node</code> and the <code>topside</code> you just ran, wherever npm put them (your home without <code>sudo</code> or with nvm), and starts it now and at login. Then come Claude Code's hooks; name <code>codex</code>, <code>pi</code> or <code>omp</code> for the others. The last line puts Topside in your bar. Without SekaiPop or DMS, run <code>topside pill</code> instead.</p>
   <aside class="note"><b>AUR</b><code>yay -S topside-arch</code> once the AUR takes new accounts again. The package is ready.</aside>
-  <p>To upgrade, run the npm line again and <code>systemctl --user restart topside</code>. To remove it, first undo what it put into your agents: <code>topside usage uninstall</code>, <code>topside hooks uninstall</code>, and the same with <code>codex</code>, <code>pi</code> or <code>omp</code> for the ones you added. Then <code>systemctl --user disable --now topside</code> and <code>sudo npm uninstall -g topside-arch</code>.</p>
+  <p>To upgrade, run the npm line again, then <code>topside setup</code>. It refreshes the bar's files and restarts your shell and the daemon, so the new version shows without a logout. If 0.1.1's daemon never started for you (<code>203/EXEC</code> in <code>systemctl --user status topside</code>), the same two lines fix it. To remove it, first undo what it put into your agents: <code>topside usage uninstall</code>, <code>topside hooks uninstall</code>, and the same with <code>codex</code>, <code>pi</code> or <code>omp</code> for the ones you added. Then <code>systemctl --user disable --now topside</code>, <code>rm ~/.config/systemd/user/topside.service</code> and <code>sudo npm uninstall -g topside-arch</code>.</p>
 
   <h2>Not there yet</h2>
   <p>The pill has no keys, sounds, reminders or hiding yet. Ghostty, Kitty and Alacritty get the window but not the tab. It's called <code>topside-arch</code> because Arch with Hyprland is the only place I've tried it; if it works on your distro, tell me and the name can grow up.</p>
 
   <p class="sig">Ban</p>
-  <p class="ps">P.S. The <a href="https://github.com/ducban/topside/releases">release notes</a> list everything in 0.1.1, plan usage and the risky-command gate for pi and omp included.</p>
+  <p class="ps">P.S. The <a href="https://github.com/ducban/topside/releases">release notes</a> list everything in 0.1.2. The daemon starts wherever npm put Topside, hiding asks before it hides, and <code>topside setup</code> finishes an upgrade by itself.</p>
 
   <footer>
-    Topside for Arch Linux 0.1.1 · <a href="../">Topside for Mac</a> · <a href="https://www.npmjs.com/package/topside-arch">npm</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a><br>
+    Topside for Arch Linux 0.1.2 · <a href="../">Topside for Mac</a> · <a href="https://www.npmjs.com/package/topside-arch">npm</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a><br>
     MIT license. The agents' logos belong to their owners and only say which agent is running.<br>
     This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
   </footer>
