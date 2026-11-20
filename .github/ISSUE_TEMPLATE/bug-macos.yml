@@ -1,23 +1,19 @@
-name: Bug report
-description: Something Topside did, or didn't do
-labels: [bug]
+name: Bug on macOS
+description: Something the Mac app did, or didn't do
+labels: [bug, macos]
 body:
-  - type: dropdown
-    id: platform
-    attributes:
-      label: Platform
-      options:
-        - macOS
-        - Arch Linux
-    validations:
-      required: true
   - type: input
     id: version
     attributes:
       label: Topside version
-      description: "macOS: Settings > About. Arch: topside --version."
+      description: Settings > About.
     validations:
       required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: "15.2"
   - type: dropdown
     id: agent
     attributes:

@@ -1,0 +1,55 @@
+name: Bug on Arch Linux
+description: Something topside-arch did, or didn't do
+labels: [bug, arch]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Topside version
+      description: The output of `topside --version`.
+    validations:
+      required: true
+  - type: dropdown
+    id: bar
+    attributes:
+      label: Where Topside shows
+      options:
+        - SekaiPop
+        - DankMaterialShell
+        - The pill (topside pill)
+        - Not about the bar
+    validations:
+      required: true
+  - type: dropdown
+    id: style
+    attributes:
+      label: Style
+      description: SekaiPop only. Settings > Desktop > Plugins > Topside.
+      options:
+        - Board
+        - Ticket
+        - Classic
+        - Not on SekaiPop
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      multiple: true
+      options:
+        - Claude Code
+        - Codex CLI
+        - pi
+        - omp
+        - Not about an agent
+  - type: input
+    id: terminal
+    attributes:
+      label: Terminal and compositor
+      description: WezTerm, Orca, tmux inside one of them…, on Hyprland or something else.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      description: Steps help. `journalctl --user -u topside -n 50` often says why. Leave out anything from your prompts or code you wouldn't post in public.
+    validations:
+      required: true
