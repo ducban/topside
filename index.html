@@ -38,7 +38,7 @@
   "image": "https://topside.ducban.com/og.png",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "macOS 14 or later, Apple silicon",
-  "softwareVersion": "0.1.0",
+  "softwareVersion": "0.2.1",
   "author": { "@type": "Person", "name": "Nguyen Duc Ban" }
 }
 </script>
@@ -132,6 +132,9 @@ figure { margin: 36px 0; clear: right; }
 .shot img { position: absolute; top: 0; left: -4.6875%; width: 109.375%; max-width: none; }
 .shot.list { aspect-ratio: 1280 / 655; }
 .shot.permission { aspect-ratio: 1280 / 752; }
+/* Board and Kitchen are wider than the cards, so they're shown whole, on the dimmed screen behind them. */
+.shot.whole { background: #121419; border-radius: 14px; }
+.shot.whole img { position: static; width: 100%; height: auto; }
 figcaption { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 12px; }
 
 /* The keys, as the legend of the card above them. */
@@ -200,6 +203,26 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <aside class="note" style="--tone: var(--done)"><b>Jump</b><kbd>^J</kbd> or a click brings the session's pane forward in WezTerm, Orca, iTerm2, Terminal.app and tmux.</aside>
   <p>For the times you do want the tab, <kbd>^J</kbd> or a click takes you there. Topside finds it the way you'd debug it: up the session's process tree until it hits a terminal, then the pane, in WezTerm, Orca, iTerm2, Terminal.app and tmux. Ghostty gets the window and an apology, since it has no way to pick a tab from outside yet.</p>
 
+  <h2>Styles</h2>
+  <aside class="note"><b>Board</b>Settings → Appearance → Style. Sessions as departures, requests as a split-flap board with chunky keys. Click the pill and the list stays while the screen dims.</aside>
+  <p>The cards are the default, and they're quiet about it. If you'd like your agents with a bit more theater, Settings has two more styles, both borrowed from the Arch version. Board turns the island into a split-flap departure board. Sessions are flights, a request drops the board out of the notch with WAITING clacking into place, and you answer on keys big enough to hit without looking.</p>
+
+  <figure>
+    <div class="shot whole"><img src="img/board.png" width="1400" height="726" loading="lazy" alt="The Board style: five sessions listed as departures with their age, agent, status word and current activity; the picked one, docs-site, parked, shows its prompt, last reply and a Jump key."></div>
+    <figcaption>Board. Click a departure for its prompt, its last reply and a way to its terminal.</figcaption>
+  </figure>
+
+  <aside class="note" style="--tone: var(--waiting)"><b>Kitchen</b>Requests print as order tickets; stamp ALLOW or DENY. The list is a rail: five tickets on magnets, the rest on a spike.</aside>
+  <p>Kitchen commits harder. The notch is a ticket printer, a request feeds out as an order ticket, and you answer it with a rubber stamp. The stamp lands, the ticket tears off, and only then does the answer go out, which is more ceremony than <kbd>^Y</kbd> needs and exactly as much as it deserves. The list is the rail over the pass: five tickets on magnets, the rest on a spike, and your plan limits chalked on the menu board.</p>
+
+  <figure>
+    <div class="shot whole"><img src="img/kitchen.png" width="1400" height="555" loading="lazy" alt="The Kitchen style: a chalk menu board with the 5-hour and 7-day plan usage, and five paper tickets held to a metal rail by magnets, stamped COOKING, ORDER UP, ON BREAK and NOT TRACKED."></div>
+    <figcaption>Kitchen. Five orders on the rail; blue is cooking, green is up.</figcaption>
+  </figure>
+
+  <aside class="note"><b>Sound</b>Off until you click the speaker beside the gear. Each style brings its own, made in code. No audio files.</aside>
+  <p>Both styles come with sound, if you want sound, which by default you don't. The board chimes like a terminal at the airport and its flaps clack; the kitchen's printer chatters and the stamp lands with a thump. Nothing plays until you click the speaker next to the gear. The sounds are generated, a few lines of arithmetic each, so the app still ships without a single audio file.</p>
+
   <h2>How it works</h2>
   <aside class="note"><b>Wiring</b>Hooks run the app's binary, which writes JSON to a Unix socket. SQLite on disk. No daemon, no account, no other socket. <a href="docs/#agents">What each agent gets</a>.</aside>
   <p>The design is boring on purpose. Nothing runs beside the app and nothing leaves the machine. Each agent's hook starts the app's own binary in hook mode, which writes one JSON message to a Unix socket and exits. Sessions live in SQLite under <code>~/Library/Application Support/Topside</code>.</p>
@@ -219,7 +242,7 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p>P.P.S. <a href="arch/">Topside is on Arch Linux now</a>: the same island in your Quickshell bar, on SekaiPop, DankMaterialShell or a pill of its own.</p>
 
   <footer>
-    Topside 0.1.0 · <a href="docs/">docs</a> · <a href="arch/">Arch Linux</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
+    Topside 0.2.1 · <a href="docs/">docs</a> · <a href="arch/">Arch Linux</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
     Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running.<br>
     This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
   </footer>

@@ -155,6 +155,7 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
       <a href="#install">Install</a>
       <a href="#agents">Agents</a>
       <a href="#island">The island</a>
+      <a href="#styles">Styles</a>
       <a href="#settings">Settings</a>
       <a href="#quiet">When it's quiet</a>
     </nav>
@@ -288,16 +289,31 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
         </table></div>
       </section>
 
+      <section id="styles">
+        <h2>Styles</h2>
+        <p>Settings → Appearance → Style. The cards are the default; the other two came from the Arch version.</p>
+        <div class="scroll"><table class="wide">
+          <thead><tr><th>Style</th><th>A request</th><th>The list</th></tr></thead>
+          <tbody>
+            <tr><td>Classic</td><td>A card with the diff and buttons</td><td>Rows, as above</td></tr>
+            <tr><td>Board</td><td>A split-flap board lowers from the notch: the time, the session, a status word (WAITING, QUESTION, SECURITY for pi and omp, DELAYED once reminded) and chunky keys</td><td>Departures: a lamp, the age, the name, the agent, a status word and what it does now. Click a row for its prompt, last reply and Jump</td></tr>
+            <tr><td>Kitchen</td><td>An order ticket feeds out of the notch, MAY I EDIT? or RISKY COMMAND on top. Answer with a rubber stamp: it lands, the ticket tears off, then the answer goes out</td><td>A rail under a chalked menu board with the plan limits: five tickets on magnets, waiting ones first and hanging lower, the rest on a spike you click to page through</td></tr>
+          </tbody>
+        </table></div>
+        <p>The keys are the same in every style; the board's keys and the kitchen's stamps show theirs. In Board and Kitchen a click on the pill pins the list: it stays when the pointer leaves, the screen dims behind it, and esc, a click on the dimmed screen or a jump puts it away. The gear pins settings the same way. The kitchen rail always holds five, whatever "Sessions shown" says.</p>
+        <p>With "Sounds" on, each style plays its own unless you switch "Style sounds" off: the board chimes, rising for a request and falling when a turn ends, and its flaps clack; the kitchen's printer chatters as a ticket feeds, a bell rings when a turn ends, and stamps, tears and magnets sound like stamps, tears and magnets. The app makes them in code; there are no audio files. The speaker left of the gear, in every style, turns all sound on and off.</p>
+      </section>
+
       <section id="settings">
         <h2>Settings</h2>
-        <p>The gear in the open list. Five tabs.</p>
+        <p>The gear in the open list. The speaker beside it turns sound on and off without opening anything. Five tabs.</p>
         <div class="scroll"><table>
           <thead><tr><th>Tab</th><th>What's in it</th></tr></thead>
           <tbody>
             <tr><td>General</td><td>"Open at login". "Sessions shown", 1 to 7, 5 unless you change it.</td></tr>
-            <tr><td>Notifications</td><td>"Open cards by themselves". "Remind me about unanswered requests": once, after 1 to 10 minutes. "Sounds", one for a session that needs you and one for a session that finished. The folders and prompts you've hidden, with a way back.</td></tr>
+            <tr><td>Notifications</td><td>"Open cards by themselves". "Remind me about unanswered requests": once, after 1 to 10 minutes. "Sounds", one for a session that needs you and one for a session that finished, and under it "Style sounds" for Board and Kitchen. The folders and prompts you've hidden, with a way back.</td></tr>
             <tr><td>Integrations</td><td>The switches from <a href="#agents">Agents</a>, "Ask before risky commands", and "Use this copy" when a hook points at another copy of the app.</td></tr>
-            <tr><td>Appearance</td><td>Light, dark or following macOS. Nine themes. Text size, 10 to 14 pt. The pill stays black in every theme, because it has to hide the notch.</td></tr>
+            <tr><td>Appearance</td><td>Light, dark or following macOS. <a href="#styles">Style</a>: Classic, Board or Kitchen. Nine themes. Text size, 10 to 14 pt. The pill stays black in every theme, because it has to hide the notch.</td></tr>
             <tr><td>About</td><td>The version, which copy is running and where the data folder is. It changes nothing.</td></tr>
           </tbody>
         </table></div>
@@ -345,7 +361,7 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
       </section>
 
       <footer>
-        Topside 0.1.0 · <a href="../">the letter</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
+        Topside 0.2.1 · <a href="../">the letter</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
         Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running.<br>
         This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
       </footer>
