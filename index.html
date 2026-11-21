@@ -38,7 +38,7 @@
   "image": "https://topside.ducban.com/og.png",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "macOS 14 or later, Apple silicon",
-  "softwareVersion": "0.2.4",
+  "softwareVersion": "0.3.0",
   "author": { "@type": "Person", "name": "Nguyen Duc Ban" }
 }
 </script>
@@ -132,10 +132,7 @@ a { color: inherit; text-underline-offset: 3px; }
 /* A render of the island, cut out of its backdrop. */
 figure { margin: 36px 0; clear: right; }
 .shot { overflow: hidden; background: #000; border-radius: 0 0 26px 26px; position: relative; }
-.shot img { position: absolute; top: 0; left: -4.6875%; width: 109.375%; max-width: none; }
-.shot.list { aspect-ratio: 1280 / 655; }
-.shot.permission { aspect-ratio: 1280 / 752; }
-/* Board and Kitchen are wider than the cards, so they're shown whole, on the dimmed screen behind them. */
+/* Board and Kitchen are shown whole, on the dimmed screen behind them. */
 .shot.whole { background: #121419; border-radius: 14px; }
 .shot.whole img, .shot.whole video { position: static; width: 100%; height: auto; display: block; }
 figcaption { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 12px; }
@@ -181,20 +178,26 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p>A coding agent is patient in the worst way. It will sit on <code>Allow this command?</code> for as long as it takes, without a sound, in a tab three windows down, while I admire how productive I'm being in another one.</p>
   <p>The agents were never the slow part. I was, and specifically the part of me that had to notice. Checking tabs is polling, and people are bad at polling: we do it constantly and get nothing else done, or we forget and find the question after lunch.</p>
 
-  <aside class="note" style="--tone: var(--working)"><b>Watch</b>One dot per session. Blue works, orange waits on you, green is done. Rows show the prompt, the file being edited and the last reply.</aside>
-  <p>So I gave the agents an interrupt line and put it on the one strip of screen nobody was using. The notch already costs every MacBook a rectangle of pixels. Topside moves in there: a black island with a dot per session. Blue is working, orange wants an answer, green is finished. Hover for the list.</p>
+  <aside class="note" style="--tone: var(--working)"><b>Watch</b>The pill names the newest session's agent and gives each session a letter: B boarding, W waiting on you, A arrived, P parked. Hover for the board.</aside>
+  <p>So I gave the agents an interrupt line and put it on the one strip of screen nobody was using. The notch already costs every MacBook a rectangle of pixels. Topside moves in there dressed as a departure board. The left side shows the newest session's agent as a flight code, CLD for Claude Code or CDX for Codex. The right side has a flap per session: B is boarding, W is waiting on you, A has arrived. Hover and the whole board comes down; click the pill instead and it stays while the screen dims.</p>
 
   <figure>
-    <div class="shot list"><img src="img/list.png" alt="The open island listing four sessions from Claude Code, pi and omp, each with its status and last line."></div>
-    <figcaption>Four sessions, three agents. The header shows what the session under the mouse has cost.</figcaption>
+    <div class="shot whole"><img src="img/pill.png" width="720" height="224" alt="Two pills at the notch. On top, the board's: CLD in orange flaps on the left, and W, B, A, P, B flaps on the right. Below, the kitchen's: an amber light and a red 1 on the left, and five paper stubs on a tiny rail on the right, the orange one hanging lower."></div>
+    <figcaption>The pill on the board, and the same five sessions in the kitchen. Either way, one of them is waiting on you.</figcaption>
   </figure>
 
-  <aside class="note" style="--tone: var(--waiting)"><b>Answer</b>Permission requests open as a card with the diff. <kbd>^Y</kbd> allows, <kbd>^N</kbd> denies. Questions get their options as buttons.</aside>
-  <p>It reads Claude Code, Codex CLI, pi and omp. When one of them wants to run a command or touch a file, the request opens on the island with the diff attached, and <kbd>^Y</kbd> or <kbd>^N</kbd> settles it. The tab stays wherever it was.</p>
+  <figure>
+    <div class="shot whole"><img src="img/board.png" width="1400" height="726" loading="lazy" alt="The Board style: five sessions listed as departures with their age, agent, status word and current activity; the picked one, docs-site, parked, shows its prompt, last reply and a Jump key."></div>
+    <figcaption>Hover and the board comes down. Click a departure for its prompt, its last reply and a way to its terminal.</figcaption>
+  </figure>
+
+  <aside class="note" style="--tone: var(--waiting)"><b>Answer</b>A request drops the board out of the notch with the diff. <kbd>^Y</kbd> allows, <kbd>^N</kbd> denies. Questions get their options as keys.</aside>
+  <p>It reads Claude Code, Codex CLI, pi and omp. When one of them wants to run a command or touch a file, the board drops out of the notch with WAITING clacking into place and the diff under it, and <kbd>^Y</kbd> or <kbd>^N</kbd> settles it. The tab stays wherever it was.</p>
 
   <figure>
-    <div class="shot permission"><img src="img/permission.png" alt="A permission card: Allow Edit on src/config.ts with a diff, and Deny, Always, Allow and Auto mode buttons."></div>
-    <figcaption>A permission request from Claude Code, answered from the notch. The keys that work on a card:</figcaption>
+    <div class="shot whole"><video autoplay muted loop playsinline preload="metadata" width="1200" height="396" poster="img/board-request-poster.jpg" aria-label="A request arriving on the Board style: the board drops from the notch and its flaps riffle until they read 22:10 WEBAPP, WAITING, EDIT THEME.TS, over a one-line diff and Deny, Auto and Allow keys.">
+      <source src="img/board-request.webm" type="video/webm"><source src="img/board-request.mp4" type="video/mp4"></video></div>
+    <figcaption>A request lands. The flaps settle on WAITING, the diff waits under them, and the keys work without the mouse:</figcaption>
     <ul class="keys">
       <li><kbd>^Y</kbd>allow</li>
       <li><kbd>^N</kbd>deny</li>
@@ -208,22 +211,8 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p>For the times you do want the tab, <kbd>^J</kbd> or a click takes you there. Topside finds it the way you'd debug it: up the session's process tree until it hits a terminal, then the pane, in WezTerm, Orca, iTerm2, Terminal.app and tmux. Ghostty gets the window and an apology, since it has no way to pick a tab from outside yet.</p>
 
   <h2>Styles</h2>
-  <aside class="note"><b>Board</b>Settings → Appearance → Style. Sessions as departures, requests as a split-flap board with chunky keys. Click the pill and the list stays while the screen dims.</aside>
-  <p>The cards are the default, and they're quiet about it. If you'd like your agents with a bit more theater, Settings has two more styles, both borrowed from the Arch version. Board turns the island into a split-flap departure board. Sessions are flights, a request drops the board out of the notch with WAITING clacking into place, and you answer on keys big enough to hit without looking.</p>
-
-  <figure>
-    <div class="shot whole"><video autoplay muted loop playsinline preload="metadata" width="1200" height="396" poster="img/board-request-poster.jpg" aria-label="A request arriving on the Board style: the board drops from the notch and its flaps riffle until they read 22:10 WEBAPP, WAITING, EDIT THEME.TS, over a one-line diff and Deny, Auto and Allow keys.">
-      <source src="img/board-request.webm" type="video/webm"><source src="img/board-request.mp4" type="video/mp4"></video></div>
-    <figcaption>A request lands. The flaps settle on WAITING; the diff waits under them.</figcaption>
-  </figure>
-
-  <figure>
-    <div class="shot whole"><img src="img/board.png" width="1400" height="726" loading="lazy" alt="The Board style: five sessions listed as departures with their age, agent, status word and current activity; the picked one, docs-site, parked, shows its prompt, last reply and a Jump key."></div>
-    <figcaption>Board. Click a departure for its prompt, its last reply and a way to its terminal.</figcaption>
-  </figure>
-
-  <aside class="note" style="--tone: var(--waiting)"><b>Kitchen</b>Requests print as order tickets; stamp ALLOW or DENY. The list is a rail: five tickets on magnets, the rest on a spike.</aside>
-  <p>Kitchen commits harder. The notch is a ticket printer, a request feeds out as an order ticket, and you answer it with a rubber stamp. The stamp lands, the ticket tears off, and only then does the answer go out, which is more ceremony than <kbd>^Y</kbd> needs and exactly as much as it deserves. The list is the rail over the pass: five tickets on magnets, the rest on a spike, and your plan limits chalked on the menu board.</p>
+  <aside class="note" style="--tone: var(--waiting)"><b>Kitchen</b>Settings → Appearance → Style. Requests print as order tickets; stamp ALLOW or DENY. The list is a rail: five tickets on magnets, the rest on a spike.</aside>
+  <p>Both styles came from the Arch version. If a departure board feels too calm, switch to Kitchen, which commits harder. The notch is a ticket printer, a request feeds out as an order ticket, and you answer it with a rubber stamp. The stamp lands, the ticket tears off, and only then does the answer go out, which is more ceremony than <kbd>^Y</kbd> needs and exactly as much as it deserves. The list is the rail over the pass: five tickets on magnets, the rest on a spike, and your plan limits chalked on the menu board.</p>
 
   <figure>
     <div class="shot whole"><video autoplay muted loop playsinline preload="metadata" width="1200" height="550" poster="img/kitchen-request-poster.jpg" aria-label="A request arriving on the Kitchen style: an order ticket feeds out of the notch's printer, headed MAY I EDIT?, with the diff and Deny, Auto and Allow stamps.">
@@ -256,11 +245,11 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p class="ps">P.S. If the session's terminal is already in front when a turn ends, Topside says nothing. You were looking at it.</p>
   <aside class="note"><b>Arch Linux</b><code>sudo npm install -g topside-arch</code>. <a href="arch/">The Linux letter</a>.</aside>
   <p>P.P.S. <a href="arch/">Topside is on Arch Linux now</a>, at <span data-version="arch">0.1.2</span>: the same island in your Quickshell bar, on SekaiPop, DankMaterialShell or a pill of its own.</p>
-  <aside class="note" style="--tone: var(--working)"><b>New since</b>Hide asks first. Lists open newest first. Settings draws each style small before you pick it. <a href="https://github.com/ducban/topside/releases">Release notes</a>.</aside>
-  <p>P.P.P.S. Topside has moved on since I wrote this. "Hide" now asks before it hides, and shows every session it would take along, even ones that were folded out of sight. Every list opens newest first with nothing picked. And Settings draws each style small before you choose one, so you can look at the kitchen without moving into it. The <a href="https://github.com/ducban/topside/releases">release notes</a> have the rest, up to 0.2.4.</p>
+  <aside class="note" style="--tone: var(--working)"><b>New since</b>Board is the default and the first look is retired. The pill and Settings wear your style. Hide asks first. <a href="https://github.com/ducban/topside/releases">Release notes</a>.</aside>
+  <p>P.P.P.S. Topside has moved on since I wrote this, and I've rewritten the middle to match. The first look, cards and colored dots, is retired: the board is the default now, and the pill and Settings dress in whichever style you pick, so there's no theme to choose anymore. Before that, "Hide" learned to ask first and every list started opening newest first. The <a href="https://github.com/ducban/topside/releases">release notes</a> have the rest, up to <span data-version="mac">0.3.0</span>.</p>
 
   <footer>
-    Topside <span data-version="mac">0.2.4</span> · <a href="docs/">docs</a> · <a href="arch/">Arch Linux</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
+    Topside <span data-version="mac">0.3.0</span> · <a href="docs/">docs</a> · <a href="arch/">Arch Linux</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
     Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running.<br>
     This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
   </footer>
