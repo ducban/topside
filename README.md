@@ -1,6 +1,6 @@
 # Topside
 
-Every agent, one notch. An island on the Mac's notch for Claude Code, Codex CLI, pi and omp: it shows which session wants an answer, takes the answer, and jumps to the session's terminal.
+Every agent, one notch. An island on the Mac's notch for Claude Code, Codex CLI, pi, omp and OpenCode: it shows which session wants an answer, takes the answer, and jumps to the session's terminal.
 
 The letter that explains it is at **https://topside.ducban.com**.
 
