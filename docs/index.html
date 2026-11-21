@@ -218,12 +218,12 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
 
         <h3>Codex CLI</h3>
         <p>Codex runs a hook only after you trust it. Open Codex, run <code>/hooks</code> and approve Topside's. Topside doesn't write that trust for you, and shouldn't be able to. Until you do, Codex rows say "Not tracked: run /hooks in Codex". You'll be asked again if the app moves to another folder, because the hook's command changes with it.</p>
-        <p>Codex takes allow or deny from a hook and nothing else, so its cards have those two buttons. <code>codex exec</code> and <code>codex review</code> don't show. If <code>CODEX_HOME</code> is set, the hooks go there.</p>
+        <p>Codex takes allow or deny from a hook and nothing else, so its requests have those two answers. <code>codex exec</code> and <code>codex review</code> don't show. If <code>CODEX_HOME</code> is set, the hooks go there.</p>
 
         <h3>pi and omp</h3>
         <p>These two have no hooks; they load TypeScript extensions. Topside adds one file, marked <code>topside-managed</code> on its first line. Switching off deletes it. A <code>topside.ts</code> without the marker is yours and is left alone.</p>
         <p>A session that was open before the switch shows as "Not tracked yet" with what to do: <code>/reload</code> in pi, a restart in omp, which loads extensions only when it starts.</p>
-        <p>pi and omp run tools without asking. "Ask before risky commands" puts a card in front of a short list: <code>rm -rf</code>, <code>sudo</code>, a forced <code>git push</code>, <code>git reset --hard</code> and <code>curl … | sh</code>, including when they hide inside <code>xargs</code> or <code>sh -c</code>. You have 25 seconds; after that the command is blocked. With Topside closed, the command just runs.</p>
+        <p>pi and omp run tools without asking. "Ask before risky commands" puts a request on the island in front of a short list: <code>rm -rf</code>, <code>sudo</code>, a forced <code>git push</code>, <code>git reset --hard</code> and <code>curl … | sh</code>, including when they hide inside <code>xargs</code> or <code>sh -c</code>. You have 25 seconds; after that the command is blocked. With Topside closed, the command just runs.</p>
         <p>They bill by the token, so the header shows what the session under the mouse has cost.</p>
 
         <h3>Plan usage</h3>
@@ -233,33 +233,34 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
       <section id="island">
         <h2>The island</h2>
         <h3>The pill</h3>
-        <p>One dot per session, newest first, up to five. The mascot takes the color of the most urgent one.</p>
+        <p>It wears the <a href="#styles">style</a> you picked. On the board, the left side is the newest session's agent as a flight code (CLD, CDX, PI or OMP) and the right side is a flap per session, newest first, up to five, with the first letter of its status. In the kitchen, the left side is the printer's light with a red count of waiting tickets, and the right side is a tiny rail with a paper stub per session.</p>
         <div class="scroll"><table>
-          <thead><tr><th>Dot</th><th>The session is</th></tr></thead>
+          <thead><tr><th>Board</th><th>Kitchen</th><th>The session is</th></tr></thead>
           <tbody>
-            <tr><td><span class="dot" style="--tone: var(--waiting)"></span>Orange</td><td>Waiting for you: a permission request or a question.</td></tr>
-            <tr><td><span class="dot" style="--tone: var(--working)"></span>Blue</td><td>Working.</td></tr>
-            <tr><td><span class="dot" style="--tone: var(--done)"></span>Green</td><td>Done with its turn.</td></tr>
-            <tr><td><span class="dot" style="--tone: var(--idle)"></span>Grey</td><td>Idle.</td></tr>
+            <tr><td><span class="dot" style="--tone: var(--waiting)"></span>W</td><td>An orange stub, hanging lower; the light blinks amber</td><td>Waiting for you: a permission request or a question.</td></tr>
+            <tr><td><span class="dot" style="--tone: var(--working)"></span>B</td><td>A blue stub</td><td>Working. B for boarding.</td></tr>
+            <tr><td><span class="dot" style="--tone: var(--done)"></span>A</td><td>A green stub</td><td>Done with its turn. A for arrived.</td></tr>
+            <tr><td><span class="dot" style="--tone: var(--idle)"></span>P</td><td>A grey stub</td><td>Idle. P for parked.</td></tr>
           </tbody>
         </table></div>
+        <p>A reminder turns the flight code into a red, blinking DELAYED color, or the printer's light red. Right after you answer, the board's flaps flip to OK and the kitchen stamps a green OK.</p>
 
         <h3>The list</h3>
-        <p>Hover the pill or click it. Each row is headed by the session's name in Claude Code, or its folder, followed by the agent's mark, the terminal's icon and the session's age. Under that: the prompt, the file being edited, the last reply.</p>
-        <p>Point at a row and three buttons appear on its right. "Hide" leaves out every session in that folder. "Hide like this" leaves out every session whose first prompt contains this one's. The third jumps to the terminal. Either one asks first: the row says how many sessions it would hide ("Hide 2 sessions in webapp, and any new one there?") and marks the others it would take, and nothing goes until you click Hide. Keep or esc leaves them. A hidden folder or prompt comes back from Settings, with ✕.</p>
-        <p>Rows past "Sessions shown" fold into "+ N more". A session waiting for an answer always keeps its row.</p>
+        <p>Hover the pill or click it. On the board each session is a departure: its age, its name in Claude Code (or its folder), the agent, a status word and what it's doing now. In the kitchen it's a ticket on the rail. The list opens newest first with nothing picked; click a row or a ticket for its prompt, its last reply and a Jump key.</p>
+        <p>Under a picked session sit two quiet links. "Hide this folder" leaves out every session in that folder. "Hide prompts like it" leaves out every session whose first prompt contains this one's. Either one asks first: it says how many sessions it would hide ("Hide 2 sessions in webapp, and any new one there?") and marks the others it would take, and nothing goes until you press Hide. Keep or esc leaves them. A hidden folder or prompt comes back from Settings, with ✕.</p>
+        <p>On the board, rows past "Sessions shown" fold into "+ N MORE". The kitchen rail always holds five and puts the rest on a spike. A session waiting for an answer always stays in view.</p>
 
-        <h3>Cards</h3>
+        <h3>Requests</h3>
         <div class="scroll"><table class="wide">
-          <thead><tr><th>Card</th><th>Opens when</th><th>Shows</th></tr></thead>
+          <thead><tr><th>What</th><th>Opens when</th><th>Shows</th></tr></thead>
           <tbody>
             <tr><td>Permission</td><td>An agent asks to run a command or touch a file</td><td>The request, a diff for edits, Allow and Deny</td></tr>
             <tr><td>Question</td><td>An agent asks you to choose</td><td>The options, numbered</td></tr>
-            <tr><td>Completion</td><td>A turn ends</td><td>The last reply, for 5 seconds</td></tr>
+            <tr><td>Finished turn</td><td>A turn ends</td><td>The last reply</td></tr>
           </tbody>
         </table></div>
-        <p>Claude Code's permission cards have two more buttons. "Always" sends back the rule Claude Code itself suggests: accept edits for the session, or allow that exact command in <code>.claude/settings.local.json</code>. It's hidden when Claude Code suggests nothing. "Auto mode" switches the session to <code>auto</code>.</p>
-        <p>A card stays until it's answered, on the island or in the terminal. If the session's terminal is already in front, no card opens: you're looking at it.</p>
+        <p>On the board these come down from the notch with keys to press; in the kitchen they print as order tickets you stamp. Claude Code's permission requests have two more answers. "Always" sends back the rule Claude Code itself suggests: accept edits for the session, or allow that exact command in <code>.claude/settings.local.json</code>. It's missing when Claude Code suggests nothing. "Auto mode" switches the session to <code>auto</code>.</p>
+        <p>A request stays until it's answered, on the island or in the terminal. If the session's terminal is already in front when a turn ends, nothing opens: you're looking at it.</p>
 
         <h3>Keys</h3>
         <div class="scroll"><table>
@@ -269,8 +270,8 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
             <tr><td><kbd>^N</kbd></td><td>Deny</td></tr>
             <tr><td><kbd>^A</kbd></td><td>Always allow (Claude Code only)</td></tr>
             <tr><td><kbd>^1</kbd> to <kbd>^9</kbd></td><td>Pick that option of a question</td></tr>
-            <tr><td><kbd>^J</kbd></td><td>Jump to the terminal of the row marked <code>^J ↗</code></td></tr>
-            <tr><td><kbd>esc</kbd></td><td>Close the list or put the card away</td></tr>
+            <tr><td><kbd>^J</kbd></td><td>Jump to the terminal of the session whose Jump key shows <code>⌃J</code></td></tr>
+            <tr><td><kbd>esc</kbd></td><td>Close the list or put the request away</td></tr>
           </tbody>
         </table></div>
         <p>The island takes keys only while the pointer is on it, and hands the keyboard back when the pointer leaves. It never eats what you type in a terminal.</p>
@@ -291,11 +292,10 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
 
       <section id="styles">
         <h2>Styles</h2>
-        <p>Settings → Appearance → Style. Each style is a card there with its own list drawn small, from sample sessions, so you see it before you pick it; a click picks it. The cards are the default; the other two came from the Arch version.</p>
+        <p>Settings → Appearance → Style. There are two, both from the Arch version, and Board is the default. Each one is a card there with its own list drawn small, from sample sessions, so you see it before you pick it; a click picks it. The pill and Settings wear the style too.</p>
         <div class="scroll"><table class="wide">
           <thead><tr><th>Style</th><th>A request</th><th>The list</th></tr></thead>
           <tbody>
-            <tr><td>Classic</td><td>A card with the diff and buttons</td><td>Rows, as above</td></tr>
             <tr><td>Board</td><td>A split-flap board lowers from the notch: the time, the session, a status word (WAITING, QUESTION, SECURITY for pi and omp, DELAYED once reminded) and chunky keys</td><td>Departures: a lamp, the age, the name, the agent, a status word and what it does now. Click a row for its prompt, last reply and Jump</td></tr>
             <tr><td>Kitchen</td><td>An order ticket feeds out of the notch, MAY I EDIT? or RISKY COMMAND on top. Answer with a rubber stamp: it lands, the ticket tears off, then the answer goes out</td><td>A rail under a chalked menu board with the plan limits: five tickets on magnets, waiting ones first and hanging lower, the rest on a spike you click to page through</td></tr>
           </tbody>
@@ -313,21 +313,21 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
             <tr><td>General</td><td>"Open at login". "Sessions shown", 1 to 7, 5 unless you change it.</td></tr>
             <tr><td>Notifications</td><td>"Open cards by themselves". "Remind me about unanswered requests": once, after 1 to 10 minutes. "Sounds", one for a session that needs you and one for a session that finished, and under it "Style sounds" for Board and Kitchen. The folders and prompts you've hidden, with a way back.</td></tr>
             <tr><td>Integrations</td><td>The switches from <a href="#agents">Agents</a>, "Ask before risky commands", and "Use this copy" when a hook points at another copy of the app.</td></tr>
-            <tr><td>Appearance</td><td>Light, dark or following macOS. <a href="#styles">Style</a>: Classic, Board or Kitchen. Nine themes. Text size, 10 to 14 pt. The pill stays black in every theme, because it has to hide the notch.</td></tr>
+            <tr><td>Appearance</td><td><a href="#styles">Style</a>: Board or Kitchen. Text size, 10 to 14 pt, for requests, prompts and replies, and the tickets on the rail; the board's flaps keep their size. No theme or light mode: the board is black and the kitchen's paper is paper.</td></tr>
             <tr><td>About</td><td>The version, which copy is running and where the data folder is. It changes nothing.</td></tr>
           </tbody>
         </table></div>
         <figure>
-          <img src="../img/settings-integrations.png?v=2" width="1280" height="884" loading="lazy" alt="The Integrations tab: switches for Claude Code hooks, Codex hooks, pi extension, omp extension, Ask before risky commands and Plan usage in the header.">
+          <img src="../img/settings-integrations.png?v=3" width="1280" height="884" loading="lazy" alt="The Integrations tab on the board's face: switches for Claude Code hooks, Codex hooks, pi extension, omp extension, Ask before risky commands and Plan usage in the header.">
           <figcaption>Integrations. Each switch says what it will touch before you flip it.</figcaption>
         </figure>
         <figure>
-          <img src="../img/settings-notifications.png?v=2" width="1280" height="1136" loading="lazy" alt="The Notifications tab: Open cards by themselves, Remind me about unanswered requests set to 2 minutes, Sounds with Glass for needs you and Tink for finished, Style sounds, and the hidden folders and prompts.">
+          <img src="../img/settings-notifications.png?v=3" width="1280" height="736" loading="lazy" alt="The Notifications tab on the board's face: Open cards by themselves, Remind me about unanswered requests set to 2 minutes, Sounds with Glass for needs you and Tink for finished, and Style sounds.">
           <figcaption>Notifications. A hidden folder or prompt comes back with its ×.</figcaption>
         </figure>
         <figure>
-          <img src="../img/settings-appearance.png?v=2" width="1280" height="1406" loading="lazy" alt="The Appearance tab in Tokyo Night: Light, Dark or System, three Style cards with Classic, Board and Kitchen drawn small, the theme picker, three sample rows drawn in the theme, and the text size.">
-          <figcaption>Appearance, in Tokyo Night. Each Style card is that style's real list, drawn small; the sample rows redraw as you step through the themes.</figcaption>
+          <img src="../img/settings-appearance.png?v=3" width="1280" height="718" loading="lazy" alt="The Appearance tab on the board's face: two Style cards, Board and Kitchen, each drawn small from sample sessions, and the text size.">
+          <figcaption>Appearance. Each Style card is that style's real list, drawn small. Pick Kitchen and Settings prints out as a ticket instead.</figcaption>
         </figure>
       </section>
 
@@ -345,12 +345,12 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
           <dd>It's a one-shot run, a background session nobody has attached to, or it matches a folder or prompt you hid. Notifications in Settings lists what's hidden.</dd>
           <dt>Settings shows "Use this copy"</dt>
           <dd>An agent's hook runs a different copy of Topside than the one you're looking at, usually an older one in another folder. The button points the hooks at this one. About says which copy is running.</dd>
-          <dt>A turn ended and no card opened</dt>
+          <dt>A turn ended and nothing opened</dt>
           <dd>The session's terminal was in front. Not a bug, though it can feel like one.</dd>
           <dt>The jump reached the app and not the tab</dt>
           <dd>That terminal has no way to pick a tab from outside. See <a href="#island">the table</a>.</dd>
           <dt>A pi or omp command was blocked</dt>
-          <dd>The risk card went 25 seconds without an answer. Run the command again and answer it, or switch the gate off.</dd>
+          <dd>The risky-command request went 25 seconds without an answer. Run the command again and answer it, or switch the gate off.</dd>
         </dl>
 
         <h3>Reporting a bug</h3>
@@ -361,7 +361,7 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
       </section>
 
       <footer>
-        Topside <span data-version="mac">0.2.4</span> · <a href="../">the letter</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
+        Topside <span data-version="mac">0.3.0</span> · <a href="../">the letter</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a> · <a href="https://github.com/ducban/topside/releases">releases</a><br>
         Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running.<br>
         This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
       </footer>
