@@ -32,7 +32,7 @@ The Mac app's source is closed. This repo holds what's public:
 
 | Path | What |
 |---|---|
-| `index.html`, `img/`, `og.png` | the site at topside.ducban.com (GitHub Pages serves the repo root) |
+| `index.html`, `img/`, `og.png` | the site at topside.ducban.com (GitHub Pages serves the repo root). Its header draws the logo and a DEPARTURES strip of four sample sessions as split flaps in HTML and CSS, riffled by the page's script (still with reduced motion); the strip is sample data, never anyone's sessions |
 | `arch/`, `og-arch.png` | the Arch Linux page at topside.ducban.com/arch/ |
 | `install.sh` | the macOS installer the site points at |
 | `scripts/bump.sh` | `scripts/bump.sh mac\|arch <version>` after a release: rewrites every `<span data-version>` and that page's `softwareVersion`, then lists lines that still name the old version |
