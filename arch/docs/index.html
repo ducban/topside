@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topside for Arch Linux docs</title>
+<meta name="description" content="How to install, upgrade and remove Topside on Arch Linux, what each command writes and where, the keys, which styles each bar draws, jumping to a terminal under Hyprland, and what to check when a session doesn't show.">
+<meta name="author" content="Nguyen Duc Ban">
+<link rel="canonical" href="https://topside.ducban.com/arch/docs/">
+<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Topside">
+<meta property="og:title" content="Topside for Arch Linux docs">
+<meta property="og:description" content="Install, upgrade and remove, every file Topside writes, the keys, and what to check when a session doesn't show.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://topside.ducban.com/arch/docs/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://topside.ducban.com/og-arch.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://topside.ducban.com/og-arch.png">
+<link rel="icon" href="../../favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../img/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../img/icon-192.png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<script>
+// Before first paint, so a stored choice doesn't flash the other theme.
+try {
+  const stored = new URLSearchParams(location.search).get("theme") || localStorage.getItem("theme");
+  if (stored === "light" || stored === "dark") document.documentElement.dataset.theme = stored;
+} catch {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+:root {
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --bg: #f6f3ec; --fg: #1d1b18; --muted: #68635a; --rule: #d9d3c5; --panel: #ebe6da;
+  --working: #2759cf; --waiting: #b05500; --done: #1a7f3b; --idle: #8a857b;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12141a; --fg: #e6e2d8; --muted: #969186; --rule: #2a2d36; --panel: #1b1e26;
+    --working: #6b9aff; --waiting: #ff8c29; --done: #40d96b; --idle: #7d7a72;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12141a; --fg: #e6e2d8; --muted: #969186; --rule: #2a2d36; --panel: #1b1e26;
+  --working: #6b9aff; --waiting: #ff8c29; --done: #40d96b; --idle: #7d7a72;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 24px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--serif); font-size: 18px; line-height: 1.6;
+  padding: 0 max(16px, env(safe-area-inset-right)) 96px max(16px, env(safe-area-inset-left)); }
+:focus-visible { outline: 2px solid var(--working); outline-offset: 3px; border-radius: 4px; }
+a { color: inherit; text-underline-offset: 3px; }
+
+.page { max-width: 1000px; margin: 0 auto; padding-top: 32px; }
+
+/* The masthead: the logo on its own flaps, the page's name, the way back, the theme switch. */
+.masthead { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--rule); padding-bottom: 20px;
+  font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.masthead .chip { padding: 9px 0; display: block; flex: none; }
+.masthead .logotype { width: 118px; height: auto; display: block; }
+.masthead h1 { font: inherit; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--fg); margin: 0; flex: 1; }
+.masthead .back { white-space: nowrap; padding: 12px 0; }
+.theme { width: 44px; height: 44px; display: grid; place-items: center; flex: none; margin-right: -10px;
+  background: none; border: 0; border-radius: 50%; color: var(--muted); cursor: pointer; transition: color .2s, background-color .2s; }
+.theme:hover { color: var(--fg); background: var(--panel); }
+.theme svg { width: 20px; height: 20px; }
+.theme .sun { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme .sun { display: block; }
+  :root:not([data-theme="light"]) .theme .moon { display: none; }
+}
+:root[data-theme="dark"] .theme .sun { display: block; }
+:root[data-theme="dark"] .theme .moon { display: none; }
+
+/* Contents on the left from 900 px up, a row of links above the text below that. */
+.layout { display: grid; gap: 8px; margin-top: 20px; }
+.contents { font-family: var(--mono); font-size: 13px; display: flex; flex-wrap: wrap; gap: 0 20px; }
+.contents a { color: var(--muted); text-decoration: none; padding: 10px 0; border-left: 2px solid transparent; transition: color .2s; }
+.contents a:hover, .contents a[aria-current] { color: var(--fg); }
+@media (min-width: 900px) {
+  .layout { grid-template-columns: 170px minmax(0, 720px); gap: 64px; margin-top: 44px; }
+  .contents { flex-direction: column; flex-wrap: nowrap; gap: 0; position: sticky; top: 24px; align-self: start; }
+  .contents a { padding: 7px 0 7px 14px; border-left-color: var(--rule); }
+  .contents a[aria-current] { border-left-color: var(--fg); }
+}
+.text { min-width: 0; }
+
+section { padding-top: 8px; }
+section + section { margin-top: 56px; border-top: 1px solid var(--rule); padding-top: 40px; }
+h2 { font-family: var(--serif); font-size: 32px; font-weight: 600; line-height: 1.2; margin: 0 0 16px; text-wrap: balance; }
+h3 { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); margin: 36px 0 12px; }
+p { margin: 0 0 1em; text-wrap: pretty; }
+ol, ul { margin: 0 0 1em; padding-left: 1.3em; }
+li { margin-bottom: .35em; }
+code, kbd { font-family: var(--mono); font-size: .8em; background: var(--panel); padding: 1px 5px; border-radius: 4px; }
+kbd { border: 1px solid var(--rule); border-bottom-width: 2px; white-space: nowrap; }
+
+.cmd { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 14px; background: var(--panel);
+  border-radius: 8px; padding: 8px 8px 8px 14px; margin: 0 0 1.2em; }
+.cmd code { background: none; padding: 6px 0; font-size: 14px; white-space: nowrap; flex: 1; min-width: 0; overflow-x: auto; }
+.cmd code::before { content: "$ "; color: var(--muted); }
+.cmd button { font: inherit; font-size: 12px; cursor: pointer; border-radius: 6px; min-width: 64px; min-height: 36px; flex: none;
+  background: transparent; color: var(--muted); border: 1px solid var(--rule); transition: color .2s, border-color .2s; }
+.cmd button:hover { color: var(--fg); border-color: var(--muted); }
+
+/* A table scrolls inside its own box, so the page never does. */
+.scroll { overflow-x: auto; margin: 0 0 1.2em; }
+table { border-collapse: collapse; width: 100%; font-size: 16px; line-height: 1.5; }
+th { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); text-align: left; }
+th, td { padding: 9px 16px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td:first-child { white-space: nowrap; }
+td:last-child, th:last-child { padding-right: 0; }
+table.wide { min-width: 620px; }
+
+/* What to check: the symptom in mono, the cause under it. */
+.checks { margin: 0; }
+.checks dt { font-family: var(--mono); font-size: 14px; font-weight: 500; margin-top: 22px; }
+.checks dd { margin: 4px 0 0; }
+
+footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule);
+  margin-top: 64px; padding-top: 18px; line-height: 1.8; display: grid; gap: 8px; }
+footer .links { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+footer b { color: var(--fg); font-weight: 500; }
+footer p { margin: 0; font-size: 11.5px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <a class="chip" href="../" aria-label="Topside for Arch Linux, the letter"><img class="logotype" src="../../img/topside-logo.svg" width="872" height="176" alt=""></a>
+    <h1>Arch docs</h1>
+    <a class="back" href="../">the letter</a>
+    <button class="theme" type="button" aria-label="Switch between light and dark" title="Switch theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+    </button>
+  </header>
+
+  <div class="layout">
+    <nav class="contents" aria-label="Contents">
+      <a href="#install">Install</a>
+      <a href="#files">Where things live</a>
+      <a href="#agents">Agents</a>
+      <a href="#bars">Bars and styles</a>
+      <a href="#keys">Keys</a>
+      <a href="#jump">Jump</a>
+      <a href="#quiet">When it's quiet</a>
+    </nav>
+
+    <main class="text">
+      <section id="install">
+        <h2>Install</h2>
+        <p>Arch Linux with Quickshell, and Node 26 or later. Topside comes from npm, which doesn't install system packages or services, so those are a few lines by hand.</p>
+        <div class="cmd"><code>sudo pacman -S nodejs npm quickshell</code><button type="button">copy</button></div>
+        <div class="cmd"><code>sudo npm install -g topside-arch</code><button type="button">copy</button></div>
+        <p>Without <code>sudo</code> works too, if npm's prefix is in your home (nvm's is). Then, as yourself rather than root:</p>
+        <div class="cmd"><code>topside login on</code><button type="button">copy</button></div>
+        <div class="cmd"><code>topside hooks install</code><button type="button">copy</button></div>
+        <div class="cmd"><code>topside setup</code><button type="button">copy</button></div>
+        <p>The first writes the daemon's <code>systemd --user</code> unit, pointed at the <code>node</code> and the script you just ran, and starts it now and at login. The second adds Claude Code's hooks; <a href="#agents">Agents</a> covers the others. The third puts Topside in your bar: SekaiPop, DankMaterialShell or both, whichever runs. With neither, run <code>topside pill</code>.</p>
+
+        <h3>Upgrade</h3>
+        <p>Run the npm line again, then <code>topside setup</code>. It refreshes the bar's files and restarts what still runs the old ones: SekaiPop or DMS, and the daemon. Add <code>--no-restart</code> to do that later; it prints the commands instead.</p>
+
+        <h3>203/EXEC</h3>
+        <p>If <code>systemctl --user status topside</code> says <code>203/EXEC</code>, the unit points at a <code>/usr/bin/topside</code> that isn't there. Before 0.1.2 the install copied a fixed unit, which fails after an install without <code>sudo</code>. <code>topside setup</code> rewrites a unit Topside wrote and restarts the daemon, so the upgrade lines above fix it.</p>
+
+        <h3>Remove</h3>
+        <p>Take out what Topside put into your agents first, while the <code>topside</code> command still exists.</p>
+        <ol>
+          <li><code>topside usage uninstall</code> gives Claude Code its own status line back, byte for byte.</li>
+          <li><code>topside hooks uninstall</code> takes out Claude Code's hooks. Add <code>codex</code>, <code>pi</code> or <code>omp</code> for the ones you installed.</li>
+          <li><code>systemctl --user disable --now topside</code>, then <code>rm ~/.config/systemd/user/topside.service</code>.</li>
+          <li><code>sudo npm uninstall -g topside-arch</code>.</li>
+          <li>For a clean slate, delete <code>~/.local/state/topside</code> and <code>~/.config/topside</code> too, and the plugin folders in the table below.</li>
+        </ol>
+
+        <h3>AUR</h3>
+        <p><code>yay -S topside-arch</code> once the AUR takes new accounts again. The package is ready; it installs the user unit in <code>/usr/lib/systemd/user</code>, so <code>topside login on</code> only enables it.</p>
+      </section>
+
+      <section id="files">
+        <h2>Where things live</h2>
+        <div class="scroll"><table class="wide">
+          <thead><tr><th>Path</th><th>Written by</th><th>What it is</th></tr></thead>
+          <tbody>
+            <tr><td><code>~/.config/systemd/user/topside.service</code></td><td><code>login on</code></td><td>The daemon's unit: this copy's <code>node</code> and script.</td></tr>
+            <tr><td><code>~/.local/state/topside/topside.db</code></td><td>the daemon</td><td>Sessions, events, approvals and plan usage, in SQLite.</td></tr>
+            <tr><td><code>$XDG_RUNTIME_DIR/topside/topside.sock</code></td><td>the daemon</td><td>The Unix socket hooks and bars talk to.</td></tr>
+            <tr><td><code>~/.claude/settings.json</code></td><td><code>hooks install</code>, <code>usage install</code></td><td>Claude Code's hooks, tagged <code># topside-managed</code>, and the status line wrapper. A backup goes next to it first.</td></tr>
+            <tr><td><code>~/.codex/hooks.json</code></td><td><code>hooks install codex</code></td><td>Codex's hooks, the same way.</td></tr>
+            <tr><td><code>~/.pi/agent/extensions/topside.ts</code></td><td><code>hooks install pi</code></td><td>pi's extension. <code>~/.omp/…</code> for omp.</td></tr>
+            <tr><td><code>~/.config/sekaipop/plugins/topside</code></td><td><code>setup</code></td><td>The SekaiPop entry, with the Board and Kitchen sounds as WAV files.</td></tr>
+            <tr><td><code>~/.config/dms/plugins/topside</code></td><td><code>setup</code></td><td>The DankMaterialShell widget.</td></tr>
+            <tr><td><code>~/.config/topside/config.json</code></td><td><code>pill</code>, <code>gate</code></td><td>The pill's place, theme and text size, and the risky-command gate.</td></tr>
+            <tr><td><code>~/.config/topside/themes/</code></td><td>you</td><td>Theme files of your own, for DMS and the pill.</td></tr>
+          </tbody>
+        </table></div>
+        <p>A plugin folder that setup finds but didn't write is moved to <code>~/.local/state/topside/</code>, never deleted. <code>TOPSIDE_SOCKET</code>, <code>TOPSIDE_DB</code> and <code>TOPSIDE_CONFIG</code> move the socket, the database and the config. Nothing leaves the machine.</p>
+      </section>
+
+      <section id="agents">
+        <h2>Agents</h2>
+        <p><b>Claude Code</b> gets hooks from <code>topside hooks install</code>. Requests come with Deny, Always, Allow and Auto mode, and questions with their options. For plan usage in the header, run <code>topside usage install</code>; it wraps your status line and passes its output through.</p>
+        <p><b>Codex CLI</b>: <code>topside hooks install codex</code>, then run <code>/hooks</code> in Codex once and trust Topside's entries. Codex skips a hook nobody trusted, so until then its sessions read "Not tracked: run /hooks in Codex". Requests get Allow and Deny only. Plan usage comes from Codex's own session file.</p>
+        <p><b>pi and omp</b> have no hooks, so <code>topside hooks install pi</code> or <code>omp</code> writes a small extension. An open pi session picks it up with <code>/reload</code>; omp needs a restart. They run tools without asking. <code>topside gate on</code> asks you first before <code>rm -rf</code>, <code>sudo</code>, <code>git push --force</code>, <code>git reset --hard</code> and <code>curl … | sh</code>; no answer in 25 seconds is a deny.</p>
+      </section>
+
+      <section id="bars">
+        <h2>Bars and styles</h2>
+        <div class="scroll"><table class="wide">
+          <thead><tr><th>Bar</th><th>Install</th><th>Draws</th><th>Settings</th></tr></thead>
+          <tbody>
+            <tr><td>SekaiPop</td><td><code>topside setup</code></td><td>Board or Kitchen</td><td>Settings &gt; Desktop &gt; Plugins &gt; Topside</td></tr>
+            <tr><td>DankMaterialShell</td><td><code>topside setup</code>, then add Topside in Bar &gt; Widgets</td><td>Cards</td><td>the ⚙ in its popout</td></tr>
+            <tr><td>Anything else</td><td><code>topside pill</code></td><td>Cards</td><td><code>topside pill position|theme|mode|text-size</code></td></tr>
+          </tbody>
+        </table></div>
+        <p>Board, the default on SekaiPop, is a split-flap departures board. A request lowers it with the session, its agent and a status word, and a click on the bar entry dims the screen and lowers the full departures. The entry shows the newest session's agent as a flight code, CLD, CDX, PI or OMP, and a small flap per session: W waiting, B boarding, A arrived, P parked.</p>
+        <p>Kitchen prints each request as an order ticket you stamp, and the list is a rail of tickets under a chalkboard of your plan usage. Its entry is a printer light, amber and blinking while something waits, and a paper stub per session.</p>
+        <p>Both always draw in Topside Black, so SekaiPop has no theme to pick. With sounds on they sound like what they are: chimes and clattering flaps, or a printer, a bell and stamps.</p>
+      </section>
+
+      <section id="keys">
+        <h2>Keys</h2>
+        <p>A card that opens by itself never takes the keyboard, so you keep typing. The keys work once you've clicked the bar entry to open the list, or pointed at the DMS popout.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Key</th><th>Does</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>^Y</kbd></td><td>Allow the first request</td></tr>
+            <tr><td><kbd>^N</kbd></td><td>Deny it</td></tr>
+            <tr><td><kbd>^A</kbd></td><td>Always, when Claude Code offers it</td></tr>
+            <tr><td><kbd>^1</kbd>…<kbd>^9</kbd></td><td>Pick an option of the first question</td></tr>
+            <tr><td><kbd>^J</kbd></td><td>Jump to the session's terminal</td></tr>
+            <tr><td><kbd>esc</kbd></td><td>Close, never answering anything</td></tr>
+          </tbody>
+        </table></div>
+        <p>In Kitchen, <kbd>^Y</kbd> and <kbd>^N</kbd> press the stamp printed on the ticket, so it slams and tears off as a click would. The pill has no keys yet.</p>
+      </section>
+
+      <section id="jump">
+        <h2>Jump</h2>
+        <p>A click on a session, or <kbd>^J</kbd>, walks up its process tree to the terminal window, focuses it with <code>hyprctl</code>, then picks the tab.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Terminal</th><th>Window</th><th>Tab</th></tr></thead>
+          <tbody>
+            <tr><td>WezTerm</td><td>yes</td><td>yes, <code>wezterm cli activate-pane</code></td></tr>
+            <tr><td>Orca</td><td>yes</td><td>yes, <code>orca terminal switch</code></td></tr>
+            <tr><td>tmux, in any of these</td><td>yes</td><td>yes: the session, window and pane</td></tr>
+            <tr><td>Ghostty, Kitty, Alacritty</td><td>yes</td><td>not yet</td></tr>
+          </tbody>
+        </table></div>
+        <p>Jump needs Hyprland. Other Wayland compositors still get the list and the answers. <code>topside jump &lt;id&gt;</code> does the same from a shell, with an id or a unique prefix from <code>topside status</code>.</p>
+      </section>
+
+      <section id="quiet">
+        <h2>When it's quiet</h2>
+        <dl class="checks">
+          <dt>The bar shows OFF, or red dots</dt>
+          <dd>The daemon isn't running. <code>systemctl --user status topside</code> says why; <code>topside login on</code> starts it.</dd>
+          <dt>A Claude Code session has no row</dt>
+          <dd>Check <code>topside integrations</code>: <code>hooks</code> should be <code>this</code>. If it's <code>other</code>, Claude Code still runs an older copy; <code>topside integrations adopt</code> points it here. <code>claude -p</code> runs and background sessions nobody attached to never get a row.</dd>
+          <dt>Codex says "Not tracked"</dt>
+          <dd>Run <code>/hooks</code> in Codex and trust Topside's entries. A reinstall from another path needs trusting again.</dd>
+          <dt>pi or omp says "Not tracked yet"</dt>
+          <dd><code>/reload</code> in pi, or restart omp.</dd>
+          <dt>The bar still shows the old version</dt>
+          <dd>Run <code>topside setup</code> again. SekaiPop and DMS keep the files they loaded until a restart, and setup does that unless you passed <code>--no-restart</code> or ran it over SSH.</dd>
+          <dt>A session is missing on purpose</dt>
+          <dd>You may have hidden its folder or prompt. The bar's settings list every hidden entry with a way back.</dd>
+          <dt>No sound</dt>
+          <dd>Sounds are off by default; the speaker beside ⚙ turns them on. They play with <code>canberra-gtk-play</code>, from <code>libcanberra</code>. A session whose terminal has the focus stays quiet.</dd>
+        </dl>
+      </section>
+
+      <footer>
+        <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.2.0</span></b><span>MIT license</span></div>
+        <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../../">Topside for Mac</a><a href="https://www.npmjs.com/package/topside-arch">npm</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
+        <p>The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+
+<script>
+document.querySelector(".theme").addEventListener("click", () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+});
+
+document.querySelectorAll(".cmd button").forEach(button => button.addEventListener("click", async () => {
+  const command = button.previousElementSibling;
+  try { await navigator.clipboard.writeText(command.textContent); button.textContent = "copied"; }
+  catch { getSelection().selectAllChildren(command); }
+  setTimeout(() => { button.textContent = "copy"; }, 1500);
+}));
+
+// Marks the section being read in the contents.
+const links = new Map([...document.querySelectorAll(".contents a")].map(link => [link.hash.slice(1), link]));
+const watcher = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    links.forEach(link => link.removeAttribute("aria-current"));
+    links.get(entry.target.id)?.setAttribute("aria-current", "true");
+  }
+}, { rootMargin: "-10% 0px -70% 0px" });
+document.querySelectorAll("section[id]").forEach(section => watcher.observe(section));
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9d61106f8c8e4b3e867e238ef672aa42"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
