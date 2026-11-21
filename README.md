@@ -37,7 +37,7 @@ The Mac app's source is closed. This repo holds what's public:
 | `install.sh` | the macOS installer the site points at |
 | `scripts/bump.sh` | `scripts/bump.sh mac\|arch <version>` after a release: rewrites every `<span data-version>` and that page's `softwareVersion`, then lists lines that still name the old version |
 | `meta/og.html` | the source of `og.png`: open it at 1200 by 630 and take a screenshot |
-| `favicon.ico`, `apple-touch-icon.png`, `img/icon*` | the app icon for the web, copied from the private repo's `assets/brand/web/` (drawn by its `scripts/make-brand.py` from `assets/brand/icon.svg`) |
+| `favicon.ico`, `apple-touch-icon.png`, `img/icon*` | the app icon for the web, and `img/topside-logo.svg`, `img/favicon.svg`: copied from the private repo's `assets/brand/web/` and `assets/brand/logo/` (drawn by its `scripts/make-brand.py`) |
 | Releases | `Topside.zip` and `Topside.zip.sha256` for macOS; release notes for Arch (`arch-v*` tags; the package itself is on npm and the AUR) |
 | Issues | bugs and ideas for both platforms |
 
