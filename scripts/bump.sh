@@ -31,7 +31,7 @@ if [ "$old" = "$version" ]; then
   exit 0
 fi
 
-pages="index.html arch/index.html docs/index.html"
+pages="index.html arch/index.html docs/index.html arch/docs/index.html"
 for file in $pages; do
   sed -i '' "s|<span data-version=\"$platform\">[^<]*</span>|<span data-version=\"$platform\">$version</span>|g" "$file"
 done
