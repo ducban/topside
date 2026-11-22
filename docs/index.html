@@ -241,6 +241,8 @@ footer p { margin: 0; font-size: 11.5px; }
 
         <h3>Plan usage</h3>
         <p>The header shows the limits of the agent you're pointing at, as <code>5h 39% 3h41m │ 7d 61% 4d5h</code>. Claude Code's come through its status line, which is why that switch exists; switching off puts your original status line back. Codex's are read from its own session file and need no switch.</p>
+        <h3>When the context fills up</h3>
+        <p>Once a Claude Code session goes past 20% of its context window, the island opens a card when its turn ends. It has three keys: Later (<kbd>esc</kbd>), Jump (<kbd>^J</kbd>) and Compact (<kbd>^Y</kbd>). Compact jumps to that session's terminal and types <code>/compact</code> for you in tmux, WezTerm, Orca, iTerm2 and Terminal.app. Any other terminal gets it on the clipboard to paste. Each session gets one card, and another only after it compacts. The number comes through the same status line wrapper as plan usage, so that switch has to be on. You can move the line or turn the card off in Notifications.</p>
       </section>
 
       <section id="island">
@@ -279,12 +281,12 @@ footer p { margin: 0; font-size: 11.5px; }
         <div class="scroll"><table>
           <thead><tr><th>Key</th><th>Does</th></tr></thead>
           <tbody>
-            <tr><td><kbd>^Y</kbd></td><td>Allow</td></tr>
+            <tr><td><kbd>^Y</kbd></td><td>Allow, or Compact on the context card</td></tr>
             <tr><td><kbd>^N</kbd></td><td>Deny</td></tr>
             <tr><td><kbd>^A</kbd></td><td>Always allow (Claude Code only)</td></tr>
             <tr><td><kbd>^1</kbd> to <kbd>^9</kbd></td><td>Pick that option of a question</td></tr>
             <tr><td><kbd>^J</kbd></td><td>Jump to the terminal of the session whose Jump key shows <code>⌃J</code></td></tr>
-            <tr><td><kbd>esc</kbd></td><td>Close the list or put the request away</td></tr>
+            <tr><td><kbd>esc</kbd></td><td>Close the list, put the request away, or Later on the context card</td></tr>
           </tbody>
         </table></div>
         <p>The island takes keys only while the pointer is on it, and hands the keyboard back when the pointer leaves. It never eats what you type in a terminal.</p>
@@ -324,7 +326,7 @@ footer p { margin: 0; font-size: 11.5px; }
           <thead><tr><th>Tab</th><th>What's in it</th></tr></thead>
           <tbody>
             <tr><td>General</td><td>"Open at login". "Sessions shown", 1 to 7, 5 unless you change it.</td></tr>
-            <tr><td>Notifications</td><td>"Open cards by themselves". "Remind me about unanswered requests": once, after 1 to 10 minutes. "Sounds", one for a session that needs you and one for a session that finished, and under it "Style sounds" for Board and Kitchen. The folders and prompts you've hidden, with a way back.</td></tr>
+            <tr><td>Notifications</td><td>"Open cards by themselves". "Remind me about unanswered requests": once, after 1 to 10 minutes. "Warn when a Claude Code context fills up": 5 to 90% used, 20 to start. "Sounds", one for a session that needs you and one for a session that finished, and under it "Style sounds" for Board and Kitchen. The folders and prompts you've hidden, with a way back.</td></tr>
             <tr><td>Integrations</td><td>The switches from <a href="#agents">Agents</a>, "Ask before risky commands", and "Use this copy" when a hook points at another copy of the app.</td></tr>
             <tr><td>Appearance</td><td><a href="#styles">Style</a>: Board or Kitchen. Text size, 10 to 14 pt, for requests, prompts and replies, and the tickets on the rail; the board's flaps keep their size. No theme or light mode: the board is black and the kitchen's paper is paper.</td></tr>
             <tr><td>About</td><td>The version, which copy is running and where the data folder is. It changes nothing.</td></tr>
@@ -374,7 +376,7 @@ footer p { margin: 0; font-size: 11.5px; }
       </section>
 
       <footer>
-        <div class="links"><b>Topside <span data-version="mac">0.4.5</span></b><span>macOS 14 or later, Apple silicon</span></div>
+        <div class="links"><b>Topside <span data-version="mac">0.4.6</span></b><span>macOS 14 or later, Apple silicon</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../arch/">Arch Linux</a><a href="https://github.com/ducban/topside/releases">Releases</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
         <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
       </footer>
