@@ -235,7 +235,9 @@ footer p { margin: 0; font-size: 11.5px; }
         <h3>OpenCode</h3>
         <p>OpenCode loads plugins, not hooks, so Topside adds one file, marked and removed the same way as pi's. It goes under <code>$XDG_CONFIG_HOME/opencode/plugins</code> when that's set. OpenCode reads plugins when it starts, so a session that was already open says "Not tracked yet" until you restart it.</p>
         <p>Unlike pi, OpenCode asks for permission itself, about whatever its <code>permission</code> config sets to <code>ask</code>. Its prompt stays up while the island asks too, and the first answer wins. You get Allow, Deny and Always; Always covers the pattern OpenCode offers, <code>git status *</code> say, until OpenCode restarts. A question with options comes up on the question card. <code>opencode run</code> and <code>opencode serve</code> don't show.</p>
-        <p>OpenCode has moved its plugin API before. If a version stops taking Topside's answers, its requests don't open on the island at all: the row says it's waiting and you answer in OpenCode. It bills by the token, so the header shows cost and tokens; on OpenCode Free, Go or Zen, which cost nothing, just the tokens.</p>
+        <p>OpenCode has moved its plugin API before. If a version stops taking Topside's answers, its requests don't open on the island at all: the row says it's waiting and you answer in OpenCode. It bills by the token, so the header shows cost and tokens; on OpenCode Free or Zen, which cost nothing, just the tokens.</p>
+        <p>OpenCode Go turns cost nothing until you hit a limit, so the limits are the number worth watching. On a Go model the header shows Go's five-hour and weekly windows, the same way it shows Claude's. After each turn the plugin asks opencode.ai with the <code>opencode-go</code> key OpenCode saved when you logged in. That key goes to opencode.ai and nowhere else.</p>
+        <p><strong>Help wanted.</strong> Whoever writes Topside doesn't pay for Go. This part was built from OpenCode's own source and tested against a fake server, never a real account. If you're on Go, finish a turn, compare the header with your Console, and <a href="https://github.com/ducban/topside/issues/new?title=OpenCode%20Go%20limits">open an issue</a> to say whether they match. "It works" is a useful report too.</p>
 
         <h3>Plan usage</h3>
         <p>The header shows the limits of the agent you're pointing at, as <code>5h 39% 3h41m │ 7d 61% 4d5h</code>. Claude Code's come through its status line, which is why that switch exists; switching off puts your original status line back. Codex's are read from its own session file and need no switch.</p>
@@ -372,7 +374,7 @@ footer p { margin: 0; font-size: 11.5px; }
       </section>
 
       <footer>
-        <div class="links"><b>Topside <span data-version="mac">0.4.4</span></b><span>macOS 14 or later, Apple silicon</span></div>
+        <div class="links"><b>Topside <span data-version="mac">0.4.5</span></b><span>macOS 14 or later, Apple silicon</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../arch/">Arch Linux</a><a href="https://github.com/ducban/topside/releases">Releases</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
         <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
       </footer>
