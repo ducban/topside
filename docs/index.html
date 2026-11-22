@@ -230,7 +230,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <p>These two have no hooks; they load TypeScript extensions. Topside adds one file, marked <code>topside-managed</code> on its first line. Switching off deletes it. A <code>topside.ts</code> without the marker is yours and is left alone.</p>
         <p>A session that was open before the switch shows as "Not tracked yet" with what to do: <code>/reload</code> in pi, a restart in omp, which loads extensions only when it starts.</p>
         <p>pi and omp run tools without asking. "Ask before risky commands" puts a request on the island in front of a short list: <code>rm -rf</code>, <code>sudo</code>, a forced <code>git push</code>, <code>git reset --hard</code> and <code>curl … | sh</code>, including when they hide inside <code>xargs</code> or <code>sh -c</code>. You have 25 seconds; after that the command is blocked. With Topside closed, the command just runs.</p>
-        <p>They bill by the token, so the header shows what the session you're pointing at has cost, as <code>$0.42 · 182K TOKENS</code>.</p>
+        <p>They bill by the token, so the header shows what the session you're pointing at has cost, as <code>$0.42 · 182K</code>, or <code>26K TOKENS</code> when it cost nothing.</p>
 
         <h3>OpenCode</h3>
         <p>OpenCode loads plugins, not hooks, so Topside adds one file, marked and removed the same way as pi's. It goes under <code>$XDG_CONFIG_HOME/opencode/plugins</code> when that's set. OpenCode reads plugins when it starts, so a session that was already open says "Not tracked yet" until you restart it.</p>
@@ -372,7 +372,7 @@ footer p { margin: 0; font-size: 11.5px; }
       </section>
 
       <footer>
-        <div class="links"><b>Topside <span data-version="mac">0.4.3</span></b><span>macOS 14 or later, Apple silicon</span></div>
+        <div class="links"><b>Topside <span data-version="mac">0.4.4</span></b><span>macOS 14 or later, Apple silicon</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../arch/">Arch Linux</a><a href="https://github.com/ducban/topside/releases">Releases</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
         <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
       </footer>
