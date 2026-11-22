@@ -240,7 +240,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <p><strong>Help wanted.</strong> Whoever writes Topside doesn't pay for Go. This part was built from OpenCode's own source and tested against a fake server, never a real account. If you're on Go, finish a turn, compare the header with your Console, and <a href="https://github.com/ducban/topside/issues/new?title=OpenCode%20Go%20limits">open an issue</a> to say whether they match. "It works" is a useful report too.</p>
 
         <h3>Plan usage</h3>
-        <p>The header shows the limits of the agent you're pointing at, as <code>5h 39% 3h41m │ 7d 61% 4d5h</code>. Claude Code's come through its status line, which is why that switch exists; switching off puts your original status line back. Codex's are read from its own session file and need no switch.</p>
+        <p>The header shows the limits of the session you've picked, as <code>5H 39%  7D 61%</code>, going orange at 50% and red at 80%. Claude Code's come through its status line, which is why that switch exists; switching off puts your original status line back. Codex's are read from its own session file and need no switch. OpenCode Go's are fetched after each turn, as described above under OpenCode.</p>
         <h3>When the context fills up</h3>
         <p>Once a session goes past 20% of its context window, the island opens a card when its turn ends. That's any agent: Claude Code, Codex, pi, omp or OpenCode. It has three keys: Later (<kbd>esc</kbd>), Jump (<kbd>^J</kbd>) and Compact (<kbd>^Y</kbd>). Compact jumps to that session's terminal and types <code>/compact</code> for you in tmux, WezTerm, Orca, iTerm2 and Terminal.app. Any other terminal gets it on the clipboard to paste. Each session gets one card, and another only after it compacts. You can move the line or turn the card off in Notifications.</p>
         <p>Where the number comes from depends on the agent. Claude Code's comes through the same status line wrapper as plan usage, so that switch has to be on. Codex's is read from its session file. pi, omp and OpenCode send theirs at the end of each turn, and they only start after they load the new extension or plugin, so run <code>/reload</code> in pi and restart omp and OpenCode once after updating. Codex's footer takes a fixed amount off before it says "% left", so the two numbers won't quite match.</p>
@@ -284,7 +284,7 @@ footer p { margin: 0; font-size: 11.5px; }
           <tbody>
             <tr><td><kbd>^Y</kbd></td><td>Allow, or Compact on the context card</td></tr>
             <tr><td><kbd>^N</kbd></td><td>Deny</td></tr>
-            <tr><td><kbd>^A</kbd></td><td>Always allow (Claude Code only)</td></tr>
+            <tr><td><kbd>^A</kbd></td><td>Always allow (Claude Code, OpenCode)</td></tr>
             <tr><td><kbd>^1</kbd> to <kbd>^9</kbd></td><td>Pick that option of a question</td></tr>
             <tr><td><kbd>^J</kbd></td><td>Jump to the terminal of the session whose Jump key shows <code>⌃J</code></td></tr>
             <tr><td><kbd>esc</kbd></td><td>Close the list, put the request away, or Later on the context card</td></tr>

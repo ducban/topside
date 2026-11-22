@@ -231,7 +231,7 @@ footer p { margin: 0; font-size: 11.5px; }
   <p>The agents were never the slow part. I was, and specifically the part of me that had to notice. Checking tabs is polling, and people are bad at polling: we do it constantly and get nothing else done, or we forget and find the question after lunch.</p>
 
   <aside class="note" style="--tone: var(--working)"><b>Watch</b>The pill names the newest session's agent and gives each session a letter: B boarding, W waiting on you, A arrived, P parked. Hover for the board.</aside>
-  <p>So I gave the agents an interrupt line and put it on the one strip of screen nobody was using. The notch already costs every MacBook a rectangle of pixels. Topside moves in there dressed as a departure board. The left side shows the newest session's agent as a flight code, CLD for Claude Code or CDX for Codex. The right side has a flap per session: B is boarding, W is waiting on you, A has arrived. Hover and the whole board comes down; click the pill instead and it stays while the screen dims.</p>
+  <p>So I gave the agents an interrupt line and put it on the one strip of screen nobody was using. The notch already costs every MacBook a rectangle of pixels. Topside moves in there dressed as a departure board. The left side shows the newest session's agent as a flight code, CLD for Claude Code or CDX for Codex. The right side has a flap per session: B is boarding, W is waiting on you, A has arrived. Hover and the whole board comes down; click the pill instead and it stays while the screen dims. The top right of the board shows how much of your plan the picked session has burned. pi, omp and OpenCode bill by the token, so for them it shows the bill.</p>
 
   <figure>
     <div class="shot whole"><img src="img/pill.png" width="720" height="224" alt="Two pills at the notch. On top, the board's: CLD in orange flaps on the left, and W, B, A, P, B flaps on the right. Below, the kitchen's: an amber light and a red 1 on the left, and five paper stubs on a tiny rail on the right, the orange one hanging lower."></div>
@@ -253,7 +253,7 @@ footer p { margin: 0; font-size: 11.5px; }
     <ul class="keys">
       <li><kbd>^Y</kbd>allow</li>
       <li><kbd>^N</kbd>deny</li>
-      <li><kbd>^A</kbd>always allow (Claude Code only)</li>
+      <li><kbd>^A</kbd>always allow (Claude Code, OpenCode)</li>
       <li><kbd>^J</kbd>jump to its terminal</li>
       <li><kbd>esc</kbd>close</li>
     </ul>
@@ -300,9 +300,10 @@ footer p { margin: 0; font-size: 11.5px; }
     <section class="card" style="--tone: var(--working)">
       <h3>What's new <span>up to <span data-version="mac">0.4.7</span></span></h3>
       <ul>
-        <li>Board is the default; the first look, cards and colored dots, is retired.</li>
-        <li>The pill and Settings dress in your style, so there's no theme to pick.</li>
-        <li>"Hide" asks first, and every list opens newest first.</li>
+        <li>When a session's context passes 20%, a card says so after its turn, and Compact types <code>/compact</code> for you. Every agent, not just Claude Code.</li>
+        <li>OpenCode joins as the fifth agent. Allow, Always, Deny and its questions all work from the notch.</li>
+        <li>The header says what a pay-per-token session has cost, like <code>$0.42 · 182K</code>, or shows OpenCode Go's limits. Restarting the app no longer blanks it.</li>
+        <li>A session Orca reopens shows up right away.</li>
       </ul>
       <a href="https://github.com/ducban/topside/releases">Release notes</a>
     </section>
