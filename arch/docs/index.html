@@ -218,7 +218,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <p><b>Claude Code</b> gets hooks from <code>topside hooks install</code>. Requests come with Deny, Always, Allow and Auto mode, and questions with their options. For plan usage in the header, run <code>topside usage install</code>; it wraps your status line and passes its output through.</p>
         <p><b>Codex CLI</b>: <code>topside hooks install codex</code>, then run <code>/hooks</code> in Codex once and trust Topside's entries. Codex skips a hook nobody trusted, so until then its sessions read "Not tracked: run /hooks in Codex". Requests get Allow and Deny only. Plan usage comes from Codex's own session file.</p>
         <p><b>pi and omp</b> have no hooks, so <code>topside hooks install pi</code> or <code>omp</code> writes a small extension. An open pi session picks it up with <code>/reload</code>; omp needs a restart. They run tools without asking. <code>topside gate on</code> asks you first before <code>rm -rf</code>, <code>sudo</code>, <code>git push --force</code>, <code>git reset --hard</code> and <code>curl … | sh</code>; no answer in 25 seconds is a deny.</p>
-        <p><b>OpenCode</b> has no hooks either: <code>topside hooks install opencode</code> writes a plugin, and OpenCode loads plugins only when it starts, so restart it. Requests get Deny, Always and Allow, where Always holds for the project until OpenCode restarts, and a question with one part gets its options. Its header shows what the session has cost, or the plan's limits on an OpenCode Go model.</p>
+        <p><b>OpenCode</b> has no hooks either: <code>topside hooks install opencode</code> writes a plugin, and OpenCode loads plugins only when it starts, so restart it. Requests get Deny, Always and Allow, where Always holds for the project until OpenCode restarts, and a question with one part gets its options, with a Deny that tells OpenCode to go on without an answer. Its header shows what the session has cost, or the plan's limits on an OpenCode Go model.</p>
         <p><b>Context.</b> When a turn ends with a session's context past the line you set (20% by default, in the bar's settings), a card says so with Later, Jump and Compact. Compact types <code>/compact</code> into the session in WezTerm, Orca or tmux, and puts it on your clipboard anywhere else. Claude Code's reading needs <code>topside usage install</code>.</p>
       </section>
 
@@ -290,7 +290,7 @@ footer p { margin: 0; font-size: 11.5px; }
       </section>
 
       <footer>
-        <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.5.0</span></b><span>MIT license</span></div>
+        <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.5.1</span></b><span>MIT license</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../../">Topside for Mac</a><a href="https://www.npmjs.com/package/topside-arch">npm</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
         <p>The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
       </footer>
