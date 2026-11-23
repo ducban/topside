@@ -168,10 +168,9 @@ footer p { margin: 0; font-size: 11.5px; }
         <div class="cmd"><code>sudo pacman -S nodejs npm quickshell</code><button type="button">copy</button></div>
         <div class="cmd"><code>sudo npm install -g topside-arch</code><button type="button">copy</button></div>
         <p>Without <code>sudo</code> works too, if npm's prefix is in your home (nvm's is). Then, as yourself rather than root:</p>
-        <div class="cmd"><code>topside login on</code><button type="button">copy</button></div>
-        <div class="cmd"><code>topside hooks install</code><button type="button">copy</button></div>
         <div class="cmd"><code>topside setup</code><button type="button">copy</button></div>
-        <p>The first writes the daemon's <code>systemd --user</code> unit, pointed at the <code>node</code> and the script you just ran, and starts it now and at login. The second adds Claude Code's hooks; <a href="#agents">Agents</a> covers the others. The third puts Topside in your bar: SekaiPop, DankMaterialShell or both, whichever runs. With neither, run <code>topside pill</code>.</p>
+        <p>It does three things. On a first install it writes the daemon's <code>systemd --user</code> unit, pointed at the <code>node</code> and the script you just ran, and starts it now and at login; that's <code>topside login on</code>, which a daemon you turned off still needs from you. It puts Topside in your bar: SekaiPop, DankMaterialShell or both, whichever runs. With neither, run <code>topside pill</code>; setup prints the <code>exec-once</code> line that starts it at login. And it installs the hooks, extension or plugin of every agent you have that has none, printing each file it wrote; <a href="#agents">Agents</a> has what each one needs after that.</p>
+        <p>It leaves three things alone: hooks that point at another copy of Topside (<code>topside integrations adopt</code> moves them), your Claude Code status line (<code>topside usage install</code> is yours to run), and every agent when you pass <code>--no-hooks</code>.</p>
 
         <h3>Upgrade</h3>
         <p>Run the npm line again, then <code>topside setup</code>. It refreshes the bar's files and restarts what still runs the old ones: SekaiPop or DMS, and the daemon. Add <code>--no-restart</code> to do that later; it prints the commands instead.</p>
@@ -198,13 +197,13 @@ footer p { margin: 0; font-size: 11.5px; }
         <div class="scroll"><table class="wide">
           <thead><tr><th>Path</th><th>Written by</th><th>What it is</th></tr></thead>
           <tbody>
-            <tr><td><code>~/.config/systemd/user/topside.service</code></td><td><code>login on</code></td><td>The daemon's unit: this copy's <code>node</code> and script.</td></tr>
+            <tr><td><code>~/.config/systemd/user/topside.service</code></td><td><code>setup</code>, <code>login on</code></td><td>The daemon's unit: this copy's <code>node</code> and script.</td></tr>
             <tr><td><code>~/.local/state/topside/topside.db</code></td><td>the daemon</td><td>Sessions, events, approvals and plan usage, in SQLite.</td></tr>
             <tr><td><code>$XDG_RUNTIME_DIR/topside/topside.sock</code></td><td>the daemon</td><td>The Unix socket hooks and bars talk to.</td></tr>
-            <tr><td><code>~/.claude/settings.json</code></td><td><code>hooks install</code>, <code>usage install</code></td><td>Claude Code's hooks, tagged <code># topside-managed</code>, and the status line wrapper. A backup goes next to it first.</td></tr>
-            <tr><td><code>~/.codex/hooks.json</code></td><td><code>hooks install codex</code></td><td>Codex's hooks, the same way.</td></tr>
-            <tr><td><code>~/.pi/agent/extensions/topside.ts</code></td><td><code>hooks install pi</code></td><td>pi's extension. <code>~/.omp/…</code> for omp.</td></tr>
-            <tr><td><code>~/.config/opencode/plugins/topside.ts</code></td><td><code>hooks install opencode</code></td><td>OpenCode's plugin.</td></tr>
+            <tr><td><code>~/.claude/settings.json</code></td><td><code>setup</code>, <code>usage install</code></td><td>Claude Code's hooks, tagged <code># topside-managed</code>, and the status line wrapper. A backup goes next to it first.</td></tr>
+            <tr><td><code>~/.codex/hooks.json</code></td><td><code>setup</code></td><td>Codex's hooks, the same way.</td></tr>
+            <tr><td><code>~/.pi/agent/extensions/topside.ts</code></td><td><code>setup</code></td><td>pi's extension. <code>~/.omp/…</code> for omp.</td></tr>
+            <tr><td><code>~/.config/opencode/plugins/topside.ts</code></td><td><code>setup</code></td><td>OpenCode's plugin.</td></tr>
             <tr><td><code>~/.config/sekaipop/plugins/topside</code></td><td><code>setup</code></td><td>The SekaiPop entry, with the Board and Kitchen sounds as WAV files.</td></tr>
             <tr><td><code>~/.config/dms/plugins/topside</code></td><td><code>setup</code></td><td>The DankMaterialShell widget.</td></tr>
             <tr><td><code>~/.config/topside/config.json</code></td><td><code>pill</code>, <code>gate</code></td><td>The pill's place, style and text size, and the risky-command gate.</td></tr>
@@ -215,10 +214,11 @@ footer p { margin: 0; font-size: 11.5px; }
 
       <section id="agents">
         <h2>Agents</h2>
-        <p><b>Claude Code</b> gets hooks from <code>topside hooks install</code>. Requests come with Deny, Always, Allow and Auto mode, and questions with their options. For plan usage in the header, run <code>topside usage install</code>; it wraps your status line and passes its output through.</p>
-        <p><b>Codex CLI</b>: <code>topside hooks install codex</code>, then run <code>/hooks</code> in Codex once and trust Topside's entries. Codex skips a hook nobody trusted, so until then its sessions read "Not tracked: run /hooks in Codex". Requests get Allow and Deny only. Plan usage comes from Codex's own session file.</p>
-        <p><b>pi and omp</b> have no hooks, so <code>topside hooks install pi</code> or <code>omp</code> writes a small extension. An open pi session picks it up with <code>/reload</code>; omp needs a restart. They run tools without asking. <code>topside gate on</code> asks you first before <code>rm -rf</code>, <code>sudo</code>, <code>git push --force</code>, <code>git reset --hard</code> and <code>curl … | sh</code>; no answer in 25 seconds is a deny.</p>
-        <p><b>OpenCode</b> has no hooks either: <code>topside hooks install opencode</code> writes a plugin, and OpenCode loads plugins only when it starts, so restart it. Requests get Deny, Always and Allow, where Always holds for the project until OpenCode restarts, and a question with one part gets its options, with a Deny that tells OpenCode to go on without an answer. Its header shows what the session has cost, or the plan's limits on an OpenCode Go model.</p>
+        <p><b>Setup installs each agent's hooks.</b> To do one by hand, or to put back what you took out: <code>topside hooks install</code> for Claude Code, and the same with <code>codex</code>, <code>pi</code>, <code>omp</code> or <code>opencode</code>. An agent you install after setup has none yet, so its session reads NOT TRACKED and its panel says what to run.</p>
+        <p><b>Claude Code</b> gets hooks. Requests come with Deny, Always, Allow and Auto mode, and questions with their options. For plan usage in the header, run <code>topside usage install</code>; it wraps your status line and passes its output through.</p>
+        <p><b>Codex CLI</b>: run <code>/hooks</code> in Codex once and trust Topside's entries. Codex skips a hook nobody trusted, so until then its sessions read NOT TRACKED, with "Run /hooks in Codex and trust Topside's hooks" in the panel. Requests get Allow and Deny only. Plan usage comes from Codex's own session file.</p>
+        <p><b>pi and omp</b> have no hooks, so setup writes a small extension. An open pi session picks it up with <code>/reload</code>; omp needs a restart. They run tools without asking. <code>topside gate on</code> asks you first before <code>rm -rf</code>, <code>sudo</code>, <code>git push --force</code>, <code>git reset --hard</code> and <code>curl … | sh</code>; no answer in 25 seconds is a deny.</p>
+        <p><b>OpenCode</b> has no hooks either: setup writes a plugin, and OpenCode loads plugins only when it starts, so restart it. Requests get Deny, Always and Allow, where Always holds for the project until OpenCode restarts, and a question with one part gets its options, with a Deny that tells OpenCode to go on without an answer. Its header shows what the session has cost, or the plan's limits on an OpenCode Go model.</p>
         <p><b>Context.</b> When a turn ends with a session's context past the line you set (20% by default, in the bar's settings), a card says so with Later, Jump and Compact. Compact types <code>/compact</code> into the session in WezTerm, Orca or tmux, and puts it on your clipboard anywhere else. Claude Code's reading needs <code>topside usage install</code>.</p>
       </section>
 
@@ -274,6 +274,8 @@ footer p { margin: 0; font-size: 11.5px; }
         <dl class="checks">
           <dt>The bar shows OFF, or red dots</dt>
           <dd>The daemon isn't running. <code>systemctl --user status topside</code> says why; <code>topside login on</code> starts it.</dd>
+          <dt>A session reads NOT TRACKED</dt>
+          <dd>Topside sees the agent running but hears nothing from it. Click the row: its panel says what to run, <code>topside setup</code> for an agent with no hooks, then a restart of the agent where it loads them only at startup.</dd>
           <dt>A Claude Code session has no row</dt>
           <dd>Check <code>topside integrations</code>: <code>hooks</code> should be <code>this</code>. If it's <code>other</code>, Claude Code still runs an older copy; <code>topside integrations adopt</code> points it here. <code>claude -p</code> runs and background sessions nobody attached to never get a row.</dd>
           <dt>Codex says "Not tracked"</dt>
@@ -290,7 +292,7 @@ footer p { margin: 0; font-size: 11.5px; }
       </section>
 
       <footer>
-        <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.5.1</span></b><span>MIT license</span></div>
+        <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.5.4</span></b><span>MIT license</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../../">Topside for Mac</a><a href="https://www.npmjs.com/package/topside-arch">npm</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
         <p>The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
       </footer>
