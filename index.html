@@ -262,6 +262,14 @@ footer p { margin: 0; font-size: 11.5px; }
   <aside class="note" style="--tone: var(--done)"><b>Jump</b><kbd>^J</kbd> or a click brings the session's pane forward in WezTerm, Orca, iTerm2, Terminal.app and tmux.</aside>
   <p>For the times you do want the tab, <kbd>^J</kbd> or a click takes you there. Topside finds it the way you'd debug it: up the session's process tree until it hits a terminal, then the pane, in WezTerm, Orca, iTerm2, Terminal.app and tmux. Ghostty gets the window and an apology, since it has no way to pick a tab from outside yet.</p>
 
+  <aside class="note" style="--tone: var(--waiting)"><b>Compact</b>Past 20% of its context, a session gets a card when its turn ends. <kbd>^Y</kbd> types <code>/compact</code> into its terminal. Move the line in Settings → Notifications.</aside>
+  <p>Sessions also put on weight. Every turn carries the whole conversation along, and nobody looks at the scale until the agent compacts on its own at the worst moment. So once a session passes 20% of its context window, Topside waits for the turn to end and puts up a card with the count. The board calls it HEAVY, like a bag over the allowance. <kbd>^Y</kbd> jumps to the terminal and types <code>/compact</code> for you in tmux, WezTerm, Orca, iTerm2 and Terminal.app; anywhere else it goes on the clipboard. <kbd>esc</kbd> means later, and later lasts until the session compacts, so it asks once. All five agents get it.</p>
+
+  <figure>
+    <div class="shot whole"><img src="img/context.png" width="1400" height="421" loading="lazy" alt="The context card on the Board style: flaps read 10:10 WEBAPP with HEAVY in orange, then CONTEXT 21% USED 214K OF 1M, over the session's prompt and Later, Jump and Compact keys."></div>
+    <figcaption>21% of a million tokens. Compact, or carry it a little longer.</figcaption>
+  </figure>
+
   <h2>Styles</h2>
   <aside class="note" style="--tone: var(--waiting)"><b>Kitchen</b>Settings → Appearance → Style. Requests print as order tickets; stamp ALLOW or DENY. The list is a rail: five tickets on magnets, the rest on a spike.</aside>
   <p>Both styles came from the Arch version. If a departure board feels too calm, switch to Kitchen, which commits harder. The notch is a ticket printer, a request feeds out as an order ticket, and you answer it with a rubber stamp. The stamp lands, the ticket tears off, and only then does the answer go out, which is more ceremony than <kbd>^Y</kbd> needs and exactly as much as it deserves. The list is the rail over the pass: five tickets on magnets, the rest on a spike, and your plan limits chalked on the menu board.</p>
