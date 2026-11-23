@@ -183,7 +183,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <p>Take out what Topside put into your agents first, while the <code>topside</code> command still exists.</p>
         <ol>
           <li><code>topside usage uninstall</code> gives Claude Code its own status line back, byte for byte.</li>
-          <li><code>topside hooks uninstall</code> takes out Claude Code's hooks. Add <code>codex</code>, <code>pi</code> or <code>omp</code> for the ones you installed.</li>
+          <li><code>topside hooks uninstall</code> takes out Claude Code's hooks. Add <code>codex</code>, <code>pi</code>, <code>omp</code> or <code>opencode</code> for the ones you installed.</li>
           <li><code>systemctl --user disable --now topside</code>, then <code>rm ~/.config/systemd/user/topside.service</code>.</li>
           <li><code>sudo npm uninstall -g topside-arch</code>.</li>
           <li>For a clean slate, delete <code>~/.local/state/topside</code> and <code>~/.config/topside</code> too, and the plugin folders in the table below.</li>
@@ -204,10 +204,10 @@ footer p { margin: 0; font-size: 11.5px; }
             <tr><td><code>~/.claude/settings.json</code></td><td><code>hooks install</code>, <code>usage install</code></td><td>Claude Code's hooks, tagged <code># topside-managed</code>, and the status line wrapper. A backup goes next to it first.</td></tr>
             <tr><td><code>~/.codex/hooks.json</code></td><td><code>hooks install codex</code></td><td>Codex's hooks, the same way.</td></tr>
             <tr><td><code>~/.pi/agent/extensions/topside.ts</code></td><td><code>hooks install pi</code></td><td>pi's extension. <code>~/.omp/…</code> for omp.</td></tr>
+            <tr><td><code>~/.config/opencode/plugins/topside.ts</code></td><td><code>hooks install opencode</code></td><td>OpenCode's plugin.</td></tr>
             <tr><td><code>~/.config/sekaipop/plugins/topside</code></td><td><code>setup</code></td><td>The SekaiPop entry, with the Board and Kitchen sounds as WAV files.</td></tr>
             <tr><td><code>~/.config/dms/plugins/topside</code></td><td><code>setup</code></td><td>The DankMaterialShell widget.</td></tr>
-            <tr><td><code>~/.config/topside/config.json</code></td><td><code>pill</code>, <code>gate</code></td><td>The pill's place, theme and text size, and the risky-command gate.</td></tr>
-            <tr><td><code>~/.config/topside/themes/</code></td><td>you</td><td>Theme files of your own, for DMS and the pill.</td></tr>
+            <tr><td><code>~/.config/topside/config.json</code></td><td><code>pill</code>, <code>gate</code></td><td>The pill's place, style and text size, and the risky-command gate.</td></tr>
           </tbody>
         </table></div>
         <p>A plugin folder that setup finds but didn't write is moved to <code>~/.local/state/topside/</code>, never deleted. <code>TOPSIDE_SOCKET</code>, <code>TOPSIDE_DB</code> and <code>TOPSIDE_CONFIG</code> move the socket, the database and the config. Nothing leaves the machine.</p>
@@ -218,6 +218,8 @@ footer p { margin: 0; font-size: 11.5px; }
         <p><b>Claude Code</b> gets hooks from <code>topside hooks install</code>. Requests come with Deny, Always, Allow and Auto mode, and questions with their options. For plan usage in the header, run <code>topside usage install</code>; it wraps your status line and passes its output through.</p>
         <p><b>Codex CLI</b>: <code>topside hooks install codex</code>, then run <code>/hooks</code> in Codex once and trust Topside's entries. Codex skips a hook nobody trusted, so until then its sessions read "Not tracked: run /hooks in Codex". Requests get Allow and Deny only. Plan usage comes from Codex's own session file.</p>
         <p><b>pi and omp</b> have no hooks, so <code>topside hooks install pi</code> or <code>omp</code> writes a small extension. An open pi session picks it up with <code>/reload</code>; omp needs a restart. They run tools without asking. <code>topside gate on</code> asks you first before <code>rm -rf</code>, <code>sudo</code>, <code>git push --force</code>, <code>git reset --hard</code> and <code>curl … | sh</code>; no answer in 25 seconds is a deny.</p>
+        <p><b>OpenCode</b> has no hooks either: <code>topside hooks install opencode</code> writes a plugin, and OpenCode loads plugins only when it starts, so restart it. Requests get Deny, Always and Allow, where Always holds for the project until OpenCode restarts, and a question with one part gets its options, with a Deny that tells OpenCode to go on without an answer. Its header shows what the session has cost, or the plan's limits on an OpenCode Go model.</p>
+        <p><b>Context.</b> When a turn ends with a session's context past the line you set (20% by default, in the bar's settings), a card says so with Later, Jump and Compact. Compact types <code>/compact</code> into the session in WezTerm, Orca or tmux, and puts it on your clipboard anywhere else. Claude Code's reading needs <code>topside usage install</code>.</p>
       </section>
 
       <section id="bars">
@@ -226,18 +228,18 @@ footer p { margin: 0; font-size: 11.5px; }
           <thead><tr><th>Bar</th><th>Install</th><th>Draws</th><th>Settings</th></tr></thead>
           <tbody>
             <tr><td>SekaiPop</td><td><code>topside setup</code></td><td>Board or Kitchen</td><td>Settings &gt; Desktop &gt; Plugins &gt; Topside</td></tr>
-            <tr><td>DankMaterialShell</td><td><code>topside setup</code>, then add Topside in Bar &gt; Widgets</td><td>Cards</td><td>the ⚙ in its popout</td></tr>
-            <tr><td>Anything else</td><td><code>topside pill</code></td><td>Cards</td><td><code>topside pill position|theme|mode|text-size</code></td></tr>
+            <tr><td>DankMaterialShell</td><td><code>topside setup</code>, then add Topside in Bar &gt; Widgets</td><td>Board or Kitchen</td><td>the ⚙ in its list</td></tr>
+            <tr><td>Anything else</td><td><code>topside pill</code></td><td>Board or Kitchen</td><td><code>topside pill position|style|text-size</code></td></tr>
           </tbody>
         </table></div>
-        <p>Board, the default on SekaiPop, is a split-flap departures board. A request lowers it with the session, its agent and a status word, and a click on the bar entry dims the screen and lowers the full departures. The entry shows the newest session's agent as a flight code, CLD, CDX, PI or OMP, and a small flap per session: W waiting, B boarding, A arrived, P parked.</p>
+        <p>Board, the default, is a split-flap departures board. A request lowers it with the session, its agent and a status word, and a click on the bar entry dims the screen and lowers the full departures. The entry shows the newest session's agent as a flight code, CLD, CDX, PI, OMP or OPC, and a small flap per session: W waiting, B boarding, A arrived, P parked.</p>
         <p>Kitchen prints each request as an order ticket you stamp, and the list is a rail of tickets under a chalkboard of your plan usage. Its entry is a printer light, amber and blinking while something waits, and a paper stub per session.</p>
-        <p>Both always draw in Topside Black, so SekaiPop has no theme to pick. With sounds on they sound like what they are: chimes and clattering flaps, or a printer, a bell and stamps.</p>
+        <p>Both always draw in Topside Black, so there's no theme to pick. With sounds on they sound like what they are: chimes and clattering flaps, or a printer, a bell and stamps.</p>
       </section>
 
       <section id="keys">
         <h2>Keys</h2>
-        <p>A card that opens by itself never takes the keyboard, so you keep typing. The keys work once you've clicked the bar entry to open the list, or pointed at the DMS popout.</p>
+        <p>A card that opens by itself never takes the keyboard, so you keep typing. The keys work once you've clicked the bar entry to open the list, on any bar.</p>
         <div class="scroll"><table>
           <thead><tr><th>Key</th><th>Does</th></tr></thead>
           <tbody>
@@ -288,7 +290,7 @@ footer p { margin: 0; font-size: 11.5px; }
       </section>
 
       <footer>
-        <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.2.0</span></b><span>MIT license</span></div>
+        <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.5.1</span></b><span>MIT license</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../../">Topside for Mac</a><a href="https://www.npmjs.com/package/topside-arch">npm</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
         <p>The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
       </footer>

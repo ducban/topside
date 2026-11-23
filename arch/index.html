@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Topside for Arch Linux</title>
-<meta name="description" content="Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi and omp. See which session wants an answer, give it from the bar, jump to its terminal.">
+<meta name="description" content="Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode. See which session wants an answer, give it from the bar, jump to its terminal.">
 <meta name="author" content="Nguyen Duc Ban">
 <link rel="canonical" href="https://topside.ducban.com/arch/">
 <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
 <meta property="og:site_name" content="Topside">
 <meta property="og:title" content="Topside for Arch Linux">
-<meta property="og:description" content="Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi and omp. See which session wants an answer, give it from the bar, jump to its terminal.">
+<meta property="og:description" content="Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode. See which session wants an answer, give it from the bar, jump to its terminal.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://topside.ducban.com/arch/">
 <meta property="og:locale" content="en_US">
@@ -22,7 +22,7 @@
 <meta property="og:image:alt" content="Topside's departures board on Linux: five coding-agent sessions, one waiting with an Edit request and Allow and Deny keys.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Topside for Arch Linux">
-<meta name="twitter:description" content="An island in your Quickshell bar for Claude Code, Codex CLI, pi and omp.">
+<meta name="twitter:description" content="An island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode.">
 <meta name="twitter:image" content="https://topside.ducban.com/og-arch.png">
 <link rel="icon" href="../favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
@@ -35,13 +35,13 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Topside for Arch Linux",
-  "description": "Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi and omp. See which session wants an answer, give it from the bar, jump to its terminal.",
+  "description": "Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode. See which session wants an answer, give it from the bar, jump to its terminal.",
   "url": "https://topside.ducban.com/arch/",
   "image": "https://topside.ducban.com/og-arch.png",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Arch Linux",
   "license": "https://opensource.org/licenses/MIT",
-  "softwareVersion": "0.2.0",
+  "softwareVersion": "0.5.1",
   "author": { "@type": "Person", "name": "Nguyen Duc Ban" }
 }
 </script>
@@ -220,14 +220,15 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <div class="screen">
     <div class="bar" aria-label="A Linux bar with Topside's entry at its right">
       <span class="spaces" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="entry"><span class="flaps code waiting" data-length="3">CLD</span><span class="letters"><span class="flaps waiting" data-length="1">W</span><span class="flaps working" data-length="1">B</span><span class="flaps done" data-length="1">A</span><span class="flaps parked" data-length="1">P</span></span></span>
+      <span class="entry"><span class="flaps code waiting" data-length="3">CLD</span><span class="letters"><span class="flaps waiting" data-length="1">W</span><span class="flaps working" data-length="1">B</span><span class="flaps done" data-length="1">A</span><span class="flaps parked" data-length="1">P</span><span class="flaps working" data-length="1">B</span></span></span>
     </div>
-    <section class="departures" aria-label="Departures: four sample sessions">
+    <section class="departures" aria-label="Departures: five sample sessions">
       <header>DEPARTURES <span>SAMPLE SESSIONS</span></header>
       <div class="row"><span class="flaps code waiting" data-length="3">CLD</span><span class="flaps name" data-length="12">checkout</span><span class="flaps status waiting" data-length="8">WAITING</span><span class="flaps age" data-length="3">2M</span></div>
       <div class="row"><span class="flaps code working" data-length="3">CDX</span><span class="flaps name" data-length="12">docs</span><span class="flaps status working" data-length="8">BOARDING</span><span class="flaps age" data-length="3">NOW</span></div>
       <div class="row"><span class="flaps code done" data-length="3">PI</span><span class="flaps name" data-length="12">infra</span><span class="flaps status done" data-length="8">ARRIVED</span><span class="flaps age" data-length="3">5M</span></div>
       <div class="row"><span class="flaps code parked" data-length="3">OMP</span><span class="flaps name" data-length="12">webapp</span><span class="flaps status parked" data-length="8">PARKED</span><span class="flaps age" data-length="3">12M</span></div>
+      <div class="row"><span class="flaps code working" data-length="3">OPC</span><span class="flaps name" data-length="12">api</span><span class="flaps status working" data-length="8">BOARDING</span><span class="flaps age" data-length="3">3M</span></div>
     </section>
   </div>
 
@@ -236,15 +237,15 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p>Linux has no notch. It has something better: a bar you built yourself. So that's where Topside goes.</p>
 
   <aside class="note" style="--tone: var(--working)"><b>Your bar</b>SekaiPop gets an entry, DankMaterialShell a widget, anything else a Quickshell pill. <code>topside setup</code> picks.</aside>
-  <p>It sits in the bar you already run. On SekaiPop it's a bar entry, on DankMaterialShell a widget with a settings page, and on anything else a small Quickshell pill you can park in one of nine spots. <code>topside setup</code> looks at what's running and installs the right one. On SekaiPop the entry wears your style: on the board, the newest session's agent as a flight code and a flap per session, W for waiting, B for boarding, A for arrived. The DMS widget and the pill show a dot per session. Blue works, orange waits on you, green is done.</p>
+  <p>It sits in the bar you already run. On SekaiPop it's a bar entry, on DankMaterialShell a widget with a settings page, and on anything else a small Quickshell pill you can park in one of nine spots. <code>topside setup</code> looks at what's running and installs the right one. The entry wears your style on all three: on the board, the newest session's agent as a flight code and a flap per session, W for waiting, B for boarding, A for arrived. Blue works, orange waits on you, green is done.</p>
 
   <figure>
     <div class="frame"><img src="../img/arch-board.png" width="2080" height="1000" alt="A split-flap departures board listing five sessions from Claude Code, pi, Codex and omp. The first one, waiting, is framed in amber, and below it a panel shows its Edit request with a diff and Deny, Always, Auto and Allow keys."></div>
-    <figcaption>Board, the default style on SekaiPop. A click on the bar lowers the departures; the waiting session is picked already.</figcaption>
+    <figcaption>Board, the default style. A click on the bar lowers the departures; the waiting session is picked already.</figcaption>
     <ul class="keys">
       <li><kbd>^Y</kbd>allow</li>
       <li><kbd>^N</kbd>deny</li>
-      <li><kbd>^A</kbd>always (Claude Code)</li>
+      <li><kbd>^A</kbd>always (Claude Code, OpenCode)</li>
       <li><kbd>^1</kbd>…<kbd>^9</kbd>pick an option</li>
       <li><kbd>^J</kbd>jump</li>
       <li><kbd>esc</kbd>close</li>
@@ -252,15 +253,18 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   </figure>
 
   <aside class="note" style="--tone: var(--waiting)"><b>Answer</b>Requests come with the diff or the command. A card that pops up by itself takes no keys, so you keep typing.</aside>
-  <p>It reads Claude Code, Codex CLI, pi and omp. A request to run a command or touch a file shows up with its diff. Answer it from the bar, or in the terminal, and the other one goes away. I was careful about one thing: a card that opens by itself never grabs the keyboard. You'd be mid-sentence in a terminal, and Topside isn't worth a lost sentence.</p>
+  <p>It reads Claude Code, Codex CLI, pi, omp and OpenCode. A request to run a command or touch a file shows up with its diff. Answer it from the bar, or in the terminal, and the other one goes away. I was careful about one thing: a card that opens by itself never grabs the keyboard. You'd be mid-sentence in a terminal, and Topside isn't worth a lost sentence.</p>
 
-  <aside class="note"><b>Styles</b>Board or Kitchen, on SekaiPop. DMS and the pill still draw cards for now.</aside>
-  <p>On SekaiPop I let myself have fun. Board is a split-flap departures board. Kitchen prints each request as an order ticket that you stamp ALLOW or DENY, and the session list hangs on a kitchen rail under a chalkboard of your plan usage. Its bar entry is a little printer: a light that blinks amber while something waits, and a paper stub per session.</p>
+  <aside class="note"><b>Styles</b>Board or Kitchen, on every bar.</aside>
+  <p>This is where I let myself have fun. Board is a split-flap departures board. Kitchen prints each request as an order ticket that you stamp ALLOW or DENY, and the session list hangs on a kitchen rail under a chalkboard of your plan usage. Its bar entry is a little printer: a light that blinks amber while something waits, and a paper stub per session.</p>
 
   <figure>
     <div class="frame"><img src="../img/arch-ticket.png" width="1800" height="1240" alt="A chalkboard showing 5-hour and 7-day plan usage over a rail of five paper tickets held by magnets, stamped NEEDS YOU, COOKING, ORDER UP and ON BREAK. Below, the picked ticket asks MAY I EDIT? with a diff and DENY, ALWAYS, AUTO and ALLOW stamps."></div>
     <figcaption>Kitchen. Waiting sessions hang first; the picked one drops its full ticket below the rail.</figcaption>
   </figure>
+
+  <aside class="note" style="--tone: var(--waiting)"><b>Context</b>A card when a session's context passes the line you set, 20% by default, with Compact on it.</aside>
+  <p>A long session gets slow and expensive before anyone notices. So when a turn ends with the context past your line, a card says how full it is, "Context 21% used · 214K of 1M", with Later, Jump and Compact. Compact goes to the session and types <code>/compact</code> for you in WezTerm, Orca or tmux; in another terminal it lands there with the command on your clipboard. Claude Code gives that number only to its status line, so it needs <code>topside usage install</code>. The other agents report it through their hooks.</p>
 
   <aside class="note" style="--tone: var(--done)"><b>Jump</b>Up the process tree to the window, <code>hyprctl</code> to focus it, then the tab: WezTerm, Orca, tmux.</aside>
   <p>When you'd rather answer in the terminal, <kbd>^J</kbd> or a click takes you there. Topside walks up the session's process tree to its window, focuses it through <code>hyprctl</code>, and picks the tab in WezTerm, Orca or tmux. That part needs Hyprland. Other compositors still get the list and the answers.</p>
@@ -278,20 +282,20 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <div class="cmd"><code>topside login on</code><button type="button">copy</button></div>
   <div class="cmd"><code>topside hooks install</code><button type="button">copy</button></div>
   <div class="cmd"><code>topside setup</code><button type="button">copy</button></div>
-  <aside class="note"><b>Other agents</b><code>topside hooks install codex</code>, <code>pi</code> or <code>omp</code>. For Codex, run <code>/hooks</code> once and trust the entries.</aside>
-  <p>npm doesn't do services, so the first line writes the daemon's unit for systemd, pointed at the <code>node</code> and the <code>topside</code> you just ran, wherever npm put them (your home without <code>sudo</code> or with nvm), and starts it now and at login. Then come Claude Code's hooks; name <code>codex</code>, <code>pi</code> or <code>omp</code> for the others. The last line puts Topside in your bar. Without SekaiPop or DMS, run <code>topside pill</code> instead.</p>
+  <aside class="note"><b>Other agents</b><code>topside hooks install codex</code>, <code>pi</code>, <code>omp</code> or <code>opencode</code>. For Codex, run <code>/hooks</code> once and trust the entries.</aside>
+  <p>npm doesn't do services, so the first line writes the daemon's unit for systemd, pointed at the <code>node</code> and the <code>topside</code> you just ran, wherever npm put them (your home without <code>sudo</code> or with nvm), and starts it now and at login. Then come Claude Code's hooks; name <code>codex</code>, <code>pi</code>, <code>omp</code> or <code>opencode</code> for the others. The last line puts Topside in your bar. Without SekaiPop or DMS, run <code>topside pill</code> instead.</p>
   <aside class="note"><b>AUR</b><code>yay -S topside-arch</code> once the AUR takes new accounts again. The package is ready.</aside>
   <aside class="note"><b>Docs</b>Upgrading, removing, every file Topside writes, the keys and what to check: <a href="docs/">the docs</a>.</aside>
   <p>To upgrade, run the npm line again, then <code>topside setup</code>. It refreshes the bar's files and restarts your shell and the daemon, so the new version shows without a logout. Removing it, what each command writes and where, and what to check when a session doesn't show are in <a href="docs/">the docs</a>.</p>
 
   <h2>Not there yet</h2>
-  <p>The pill has no keys, sounds, reminders or hiding yet. Ghostty, Kitty and Alacritty get the window but not the tab. It's called <code>topside-arch</code> because Arch with Hyprland is the only place I've tried it; if it works on your distro, tell me and the name can grow up.</p>
+  <p>The pill has no sounds, reminders or hiding yet. Ghostty, Kitty and Alacritty get the window but not the tab. It's called <code>topside-arch</code> because Arch with Hyprland is the only place I've tried it; if it works on your distro, tell me and the name can grow up.</p>
 
   <p class="sig">Ban</p>
-  <p class="ps">P.S. The <a href="https://github.com/ducban/topside/releases">release notes</a> list everything in 0.2.0. Classic retired on SekaiPop, and its bar entry now wears the board or the kitchen.</p>
+  <p class="ps">P.S. The <a href="https://github.com/ducban/topside/releases">release notes</a> list everything up to 0.5.1. OpenCode is the fifth agent, and a card now tells you when a session's context is filling up.</p>
 
   <footer>
-    Topside for Arch Linux <span data-version="arch">0.2.0</span> · <a href="../">Topside for Mac</a> · <a href="https://www.npmjs.com/package/topside-arch">npm</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a><br>
+    Topside for Arch Linux <span data-version="arch">0.5.1</span> · <a href="../">Topside for Mac</a> · <a href="https://www.npmjs.com/package/topside-arch">npm</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a><br>
     MIT license. The agents' logos belong to their owners and only say which agent is running.<br>
     This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
   </footer>
