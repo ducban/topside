@@ -230,11 +230,11 @@ footer p { margin: 0; font-size: 11.5px; }
         <p>These two have no hooks; they load TypeScript extensions. Topside adds one file, marked <code>topside-managed</code> on its first line. Switching off deletes it. A <code>topside.ts</code> without the marker is yours and is left alone.</p>
         <p>A session that was open before the switch shows as "Not tracked yet" with what to do: <code>/reload</code> in pi, a restart in omp, which loads extensions only when it starts.</p>
         <p>pi and omp run tools without asking. "Ask before risky commands" puts a request on the island in front of a short list: <code>rm -rf</code>, <code>sudo</code>, a forced <code>git push</code>, <code>git reset --hard</code> and <code>curl … | sh</code>, including when they hide inside <code>xargs</code> or <code>sh -c</code>. You have 25 seconds; after that the command is blocked. With Topside closed, the command just runs.</p>
-        <p>They bill by the token, so the header shows what the session you're pointing at has cost, as <code>$0.42 · 182K</code>, or <code>26K TOKENS</code> when it cost nothing.</p>
+        <p>They bill by the token, so the header shows what the session you've picked has cost, as <code>$0.42 · 182K</code>, or <code>26K TOKENS</code> when it cost nothing.</p>
 
         <h3>OpenCode</h3>
         <p>OpenCode loads plugins, not hooks, so Topside adds one file, marked and removed the same way as pi's. It goes under <code>$XDG_CONFIG_HOME/opencode/plugins</code> when that's set. OpenCode reads plugins when it starts, so a session that was already open says "Not tracked yet" until you restart it.</p>
-        <p>Unlike pi, OpenCode asks for permission itself, about whatever its <code>permission</code> config sets to <code>ask</code>. Its prompt stays up while the island asks too, and the first answer wins. You get Allow, Deny and Always; Always covers the pattern OpenCode offers, <code>git status *</code> say, until OpenCode restarts. A question with options comes up on the question card. <code>opencode run</code> and <code>opencode serve</code> don't show.</p>
+        <p>Unlike pi, OpenCode asks for permission itself, about whatever its <code>permission</code> config sets to <code>ask</code>. Its prompt stays up while the island asks too, and the first answer wins. You get Allow, Deny and Always; Always covers the pattern OpenCode offers, <code>git status *</code> say, in that project until OpenCode restarts. A question with options comes up on the question card. <code>opencode run</code> and <code>opencode serve</code> don't show.</p>
         <p>OpenCode has moved its plugin API before. If a version stops taking Topside's answers, its requests don't open on the island at all: the row says it's waiting and you answer in OpenCode. It bills by the token, so the header shows cost and tokens; on OpenCode Free or Zen, which cost nothing, just the tokens.</p>
         <p>OpenCode Go turns cost nothing until you hit a limit, so the limits are the number worth watching. On a Go model the header shows Go's five-hour and weekly windows, the same way it shows Claude's. After each turn the plugin asks opencode.ai with the <code>opencode-go</code> key OpenCode saved when you logged in. That key goes to opencode.ai and nowhere else.</p>
         <p><strong>Help wanted.</strong> Whoever writes Topside doesn't pay for Go. This part was built from OpenCode's own source and tested against a fake server, never a real account. If you're on Go, finish a turn, compare the header with your Console, and <a href="https://github.com/ducban/topside/issues/new?title=OpenCode%20Go%20limits">open an issue</a> to say whether they match. "It works" is a useful report too.</p>
@@ -259,11 +259,11 @@ footer p { margin: 0; font-size: 11.5px; }
             <tr><td><span class="dot" style="--tone: var(--idle)"></span>P</td><td>A grey stub</td><td>Idle. P for parked.</td></tr>
           </tbody>
         </table></div>
-        <p>A reminder turns the flight code into a red, blinking DELAYED color, or the printer's light red. Right after you answer, the board's flaps flip to OK and the kitchen stamps a green OK.</p>
+        <p>A reminder turns the flight code red and blinking and the status word to DELAYED, or the printer's light red. Right after you answer, the board's flaps flip to OK and the kitchen stamps a green OK.</p>
 
         <h3>The list</h3>
         <p>Hover the pill or click it. On the board each session is a departure: its age, its name in Claude Code (or its folder), the agent, a status word and what it's doing now. In the kitchen it's a ticket on the rail. The list opens newest first with nothing picked; click a row or a ticket for its prompt, its last reply and a Jump key.</p>
-        <p>Under a picked session sit two quiet links. "Hide this folder" leaves out every session in that folder. "Hide prompts like it" leaves out every session whose first prompt contains this one's. Either one asks first: it says how many sessions it would hide ("Hide 2 sessions in webapp, and any new one there?") and marks the others it would take, and nothing goes until you press Hide. Keep or esc leaves them. A hidden folder or prompt comes back from Settings, with ✕.</p>
+        <p>Under a picked session sit two quiet links. "Hide this folder" leaves out every session in that folder. "Hide prompts like it" leaves out every session whose first prompt contains this one's. Either one asks first: it says how many sessions it would hide ("Hide 2 sessions in webapp, and any new one there?") and marks the others it would take, and nothing goes until you press Hide. Keep or esc leaves them. A hidden folder or prompt comes back from Settings, with ×.</p>
         <p>On the board, rows past "Sessions shown" fold into "+ N MORE". The kitchen rail always holds five and puts the rest on a spike. A session waiting for an answer always stays in view.</p>
 
         <h3>Requests</h3>
@@ -286,7 +286,7 @@ footer p { margin: 0; font-size: 11.5px; }
             <tr><td><kbd>^N</kbd></td><td>Deny</td></tr>
             <tr><td><kbd>^A</kbd></td><td>Always allow (Claude Code, OpenCode)</td></tr>
             <tr><td><kbd>^1</kbd> to <kbd>^9</kbd></td><td>Pick that option of a question</td></tr>
-            <tr><td><kbd>^J</kbd></td><td>Jump to the terminal of the session whose Jump key shows <code>⌃J</code></td></tr>
+            <tr><td><kbd>^J</kbd></td><td>Jump to the terminal of the session whose Jump key shows <code>^J</code></td></tr>
             <tr><td><kbd>esc</kbd></td><td>Close the list, put the request away, or Later on the context card</td></tr>
           </tbody>
         </table></div>
@@ -373,7 +373,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <p>Start the agent with <code>TOPSIDE_HOOK_LOG</code> set to a file, for example <code>TOPSIDE_HOOK_LOG=/tmp/topside.log claude</code>. Every hook then appends its payload to that file, one JSON object per line. Reproduce the problem, then <a href="https://github.com/ducban/topside/issues">open an issue</a>. The log holds your prompts and file paths, so read it before you attach it.</p>
 
         <h3>What leaves your Mac</h3>
-        <p>Nothing. The app talks to a Unix socket and a SQLite file, and has no account to sign in to. The log above is off unless you set that variable, and it stays where you put it.</p>
+        <p>Nothing, with one exception. The app talks to a Unix socket and a SQLite file, and has no account to sign in to. The exception is an OpenCode Go session: after each turn the plugin asks opencode.ai for your plan limits, with the key OpenCode already saved. The log above is off unless you set that variable, and it stays where you put it.</p>
       </section>
 
       <footer>
