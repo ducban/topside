@@ -166,7 +166,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <h2>Install</h2>
         <p>Arch Linux with Quickshell, and Node 26 or later. Topside comes from npm, which doesn't install system packages or services, so those are a few lines by hand.</p>
         <div class="cmd"><code>sudo pacman -S nodejs npm quickshell</code><button type="button">copy</button></div>
-        <div class="cmd"><code>sudo npm install -g topside-arch</code><button type="button">copy</button></div>
+        <div class="cmd"><code>sudo npm install -g topside-arch</code><button type="button" data-umami-event="copy install">copy</button></div>
         <p>Without <code>sudo</code> works too, if npm's prefix is in your home (nvm's is). Then, as yourself rather than root:</p>
         <div class="cmd"><code>topside setup</code><button type="button">copy</button></div>
         <p>It does three things. On a first install it writes the daemon's <code>systemd --user</code> unit, pointed at the <code>node</code> and the script you just ran, and starts it now and at login; that's <code>topside login on</code>, which a daemon you turned off still needs from you. It puts Topside in your bar: SekaiPop, DankMaterialShell or both, whichever runs. With neither, run <code>topside pill</code>; setup prints the <code>exec-once</code> line that starts it at login. And it installs the hooks, extension or plugin of every agent you have that has none, printing each file it wrote; <a href="#agents">Agents</a> has what each one needs after that.</p>
@@ -294,7 +294,7 @@ footer p { margin: 0; font-size: 11.5px; }
       <footer>
         <div class="links"><b>Topside for Arch Linux <span data-version="arch">0.5.4</span></b><span>MIT license</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../../">Topside for Mac</a><a href="https://www.npmjs.com/package/topside-arch">npm</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
-        <p>The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
+        <p>The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics and Umami, neither of which sets cookies; the app counts nothing.</p>
       </footer>
     </main>
   </div>
@@ -327,5 +327,6 @@ const watcher = new IntersectionObserver(entries => {
 document.querySelectorAll("section[id]").forEach(section => watcher.observe(section));
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9d61106f8c8e4b3e867e238ef672aa42"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Umami --><script defer src="https://cloud.umami.is/script.js" data-website-id="28bb9176-adaf-41a6-8e86-ddf7b6ce1cc5"></script>
 </body>
 </html>
