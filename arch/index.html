@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Topside for Arch Linux</title>
-<meta name="description" content="Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode. See which session wants an answer, give it from the bar, jump to its terminal.">
+<meta name="description" content="Topside for Arch Linux. Your machine is an airport, your coding agents are the pilots flying your tasks, and Topside is the departure board in your Quickshell bar. Claude Code, Codex CLI, pi, omp and OpenCode: see who's waiting on you, answer from the bar, jump to the terminal.">
 <meta name="author" content="Nguyen Duc Ban">
 <link rel="canonical" href="https://topside.ducban.com/arch/">
 <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
 <meta property="og:site_name" content="Topside">
 <meta property="og:title" content="Topside for Arch Linux">
-<meta property="og:description" content="Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode. See which session wants an answer, give it from the bar, jump to its terminal.">
+<meta property="og:description" content="Topside for Arch Linux. Your machine is an airport, your coding agents are the pilots flying your tasks, and Topside is the departure board in your Quickshell bar. Claude Code, Codex CLI, pi, omp and OpenCode: see who's waiting on you, answer from the bar, jump to the terminal.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://topside.ducban.com/arch/">
 <meta property="og:locale" content="en_US">
@@ -22,7 +22,7 @@
 <meta property="og:image:alt" content="Topside's departures board on Linux: five coding-agent sessions, one waiting with an Edit request and Allow and Deny keys.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Topside for Arch Linux">
-<meta name="twitter:description" content="An island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode.">
+<meta name="twitter:description" content="The departure board for your coding agents, in your Quickshell bar. Claude Code, Codex CLI, pi, omp and OpenCode.">
 <meta name="twitter:image" content="https://topside.ducban.com/og-arch.png">
 <link rel="icon" href="../favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
@@ -35,7 +35,7 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Topside for Arch Linux",
-  "description": "Topside for Arch Linux: an island in your Quickshell bar for Claude Code, Codex CLI, pi, omp and OpenCode. See which session wants an answer, give it from the bar, jump to its terminal.",
+  "description": "Topside for Arch Linux. Your machine is an airport, your coding agents are the pilots flying your tasks, and Topside is the departure board in your Quickshell bar. Claude Code, Codex CLI, pi, omp and OpenCode: see who's waiting on you, answer from the bar, jump to the terminal.",
   "url": "https://topside.ducban.com/arch/",
   "image": "https://topside.ducban.com/og-arch.png",
   "applicationCategory": "DeveloperApplication",
@@ -145,6 +145,22 @@ img { max-width: 100%; display: block; }
 .departures .row .cell { width: .95em; height: 1.3em; }
 .departures .name { color: #d6dae4; }
 .departures .age { color: #8e94a6; }
+/* The Product Hunt strip: one more row off the board, as on the Mac page, shown by the page's script from the day the
+   launch was scheduled until two weeks after it. Without the script it stays hidden. */
+.launch { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #0c0d10; border-radius: 12px;
+  padding: 12px 16px; margin: -28px 0 44px; font-family: var(--mono); font-size: 13px; line-height: 1.5;
+  color: #d6dae4; text-decoration: none; clear: right; }
+.launch[hidden] { display: none; }
+.launch .flaps { font-size: 15px; flex: none; }
+.launch .working { color: #6b9aff; }
+.launch .waiting { color: #ff8c29; }
+.launch .done { color: #40d96b; }
+.launch .clock { display: inline-flex; align-items: center; gap: 8px; flex: none; color: #8e94a6; }
+.launch .clock[hidden] { display: none; }
+.launch .clock .flaps { color: #d6dae4; }
+.launch .line { flex: 1; min-width: 200px; }
+.launch .line b { color: #f5c84b; font-weight: 600; }
+.launch[href] .line::after { content: " \2192"; color: #8e94a6; }
 .screen .working { color: #6b9aff; }
 .screen .waiting { color: #ff8c29; }
 .screen .done { color: #40d96b; }
@@ -194,6 +210,17 @@ figcaption { font-family: var(--mono); font-size: 12.5px; color: var(--muted); m
 
 footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule);
   margin-top: 56px; padding-top: 18px; line-height: 1.8; clear: right; }
+/* Product Hunt's own badge, drawn by their server in the page's theme. The script shows it once the launch is public. */
+footer .badge { display: block; width: 250px; margin: 10px 0 8px; line-height: 0; }
+footer .badge[hidden] { display: none; }
+footer .badge img { width: 250px; height: 54px; }
+footer .badge .dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) footer .badge .light { display: none; }
+  :root:not([data-theme="light"]) footer .badge .dark { display: block; }
+}
+:root[data-theme="dark"] footer .badge .light { display: none; }
+:root[data-theme="dark"] footer .badge .dark { display: block; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
 /* A render of the bar's window, on black as it sits on the desktop. */
@@ -232,12 +259,15 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
     </section>
   </div>
 
+  <a class="launch" hidden><span class="flaps status" data-length="8"></span><span class="clock" hidden aria-hidden="true"><span class="flaps" data-length="8"></span><span class="unit"></span></span><span class="line"></span></a>
+
   <aside class="note intro"><b>tl;dr</b>Topside, the Mac's notch island, now lives in your Linux bar. <code>sudo npm install -g topside-arch</code>.</aside>
   <p><a href="../">Topside on the Mac</a> is an island in the notch that tells me which coding agent is waiting on me. In September I set up an Arch box next to the Mac, and the agents came along. They sat on <code>Allow this command?</code> in a tab three workspaces away, same as before.</p>
   <p>Linux has no notch. It has something better: a bar you built yourself. So that's where Topside goes.</p>
 
   <aside class="note" style="--tone: var(--working)"><b>Your bar</b>SekaiPop gets an entry, DankMaterialShell a widget, anything else a Quickshell pill. <code>topside setup</code> picks.</aside>
   <p>It sits in the bar you already run. On SekaiPop it's a bar entry, on DankMaterialShell a widget with a settings page, and on anything else a small Quickshell pill you can park in one of nine spots. <code>topside setup</code> looks at what's running and installs the right one. The entry wears your style on all three: on the board, the newest session's agent as a flight code and a flap per session, W for waiting, B for boarding, A for arrived. Blue works, orange waits on you, green is done.</p>
+  <p>The casting is the Mac's: your machine is the airport, the agents are the pilots flying your tasks, and the board says who's in the air and who's holding for you.</p>
 
   <figure>
     <div class="frame"><img src="../img/arch-board.png" width="2080" height="1000" alt="A split-flap departures board listing five sessions from Claude Code, pi, Codex and omp. The first one, waiting, is framed in amber, and below it a panel shows its Edit request with a diff and Deny, Always, Auto and Allow keys."></div>
@@ -254,6 +284,9 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
 
   <aside class="note" style="--tone: var(--waiting)"><b>Answer</b>Requests come with the diff or the command. A card that pops up by itself takes no keys, so you keep typing.</aside>
   <p>It reads Claude Code, Codex CLI, pi, omp and OpenCode. A request to run a command or touch a file shows up with its diff. Answer it from the bar, or in the terminal, and the other one goes away. I was careful about one thing: a card that opens by itself never grabs the keyboard. You'd be mid-sentence in a terminal, and Topside isn't worth a lost sentence.</p>
+
+  <aside class="note"><b>Who it's for</b>Two or more terminal agents at once, and you on another workspace. One agent that you sit and watch doesn't need this.</aside>
+  <p>Who is this for? Anyone who runs two or more terminal agents at once and works on another workspace while the agents think. If you run one agent and watch it, close this tab: its own prompt is enough. An agent that lives inside an editor won't show up either; Topside reads the five terminal ones above and nothing else.</p>
 
   <aside class="note"><b>Styles</b>Board or Kitchen, on every bar.</aside>
   <p>This is where I let myself have fun. Board is a split-flap departures board. Kitchen prints each request as an order ticket that you stamp ALLOW or DENY, and the session list hangs on a kitchen rail under a chalkboard of your plan usage. Its bar entry is a little printer: a light that blinks amber while something waits, and a paper stub per session.</p>
@@ -294,8 +327,9 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
 
   <footer>
     Topside for Arch Linux <span data-version="arch">0.5.4</span> · <a href="../">Topside for Mac</a> · <a href="https://www.npmjs.com/package/topside-arch">npm</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a><br>
-    MIT license. The agents' logos belong to their owners and only say which agent is running.<br>
-    This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere. The app counts nothing.
+    MIT license. The agents' logos belong to their owners and only say which agent is running.
+    <a class="badge" hidden target="_blank" rel="noopener"><img class="light" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=light"><img class="dark" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=dark"></a>
+    This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere, and once the launch is public it loads one badge image from Product Hunt. The app counts nothing.
   </footer>
 </main>
 
@@ -330,6 +364,48 @@ function riffle(el, text) {
     for (let s = 0; s < steps; s++) setTimeout(() => paint(cell, s === steps - 1 ? to : LETTERS[Math.floor(Math.random() * 36)]), 200 + i * 18 + s * 55);
   });
 }
+// Product Hunt. The launch goes public on 25 Nov 2026 at 00:00 Pacific. Until then the strip counts
+// down to it and has nowhere to link to; on launch day it counts what's left of the day; two weeks
+// later it takes itself down. The footer's badge comes up at the launch and stays.
+const strip = document.querySelector(".launch"), badge = document.querySelector("footer .badge");
+const clock = strip.querySelector(".clock"), flight = strip.querySelector(".status");
+const liftoff = Date.UTC(2026, 10, 25, 8), day = 86400000;
+const post = "https://www.producthunt.com/posts/topside";
+const phases = [
+  { until: liftoff, word: "BOARDING", tone: "working", unit: "to launch", line: "<b>Product Hunt</b> Topside launches there on Wed 25 Nov, at midnight Pacific." },
+  { until: liftoff + day, word: "AIRBORNE", tone: "waiting", unit: "left today", line: "<b>Product Hunt</b> Topside is up there today. Come and tell me what's broken." },
+  { until: liftoff + 14 * day, word: "LANDED", tone: "done", line: "<b>Product Hunt</b> Topside launched there on 25 Nov. The comments are still open." },
+];
+let phase = null;
+// What's left, as HH:MM:SS. Only the cells whose digit changed flip, once, with no riffle.
+function tick() {
+  const now = Date.now(), next = phases.find(p => now < p.until);
+  if (next !== phase) { announce(next, now); return; }
+  if (!phase || !phase.unit) return;
+  const left = Math.ceil((phase.until - now) / 1000);
+  const text = [left / 3600, left / 60 % 60, left % 60].map(n => String(Math.floor(n)).padStart(2, "0")).join(":");
+  [...clock.firstChild.children].forEach((cell, i) => { if (cell.textContent !== text[i]) paint(cell, text[i]); });
+}
+function announce(next, now) {
+  phase = next;
+  if (now >= liftoff && !badge.href) {
+    badge.href = post + "?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-topside";
+    badge.querySelectorAll("img").forEach(img => { img.src = img.dataset.src; });
+    badge.hidden = false;
+  }
+  strip.hidden = !phase;
+  if (!phase) return;
+  flight.className = "flaps status " + phase.tone;
+  strip.querySelector(".line").innerHTML = phase.line;
+  strip.querySelector(".unit").textContent = phase.unit || "";
+  clock.hidden = !phase.unit;
+  if (now >= liftoff) strip.href = post + "?utm_source=topside.ducban.com";
+  if (flight.children.length) riffle(flight, phase.word); else flight.textContent = phase.word;
+  if (phase.unit) { if (!clock.firstChild.children.length) riffle(clock.firstChild, ""); tick(); }
+}
+tick();
+setInterval(tick, 1000);
+
 document.querySelectorAll(".flaps").forEach(el => riffle(el, el.textContent.trim()));
 
 // Every few seconds one departure moves on, while the board is on screen and the tab is in front.
