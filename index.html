@@ -124,7 +124,7 @@ img { max-width: 100%; display: block; }
 .mark { margin: 0 0 32px; display: flex; justify-content: center; }
 .mark .flaps { font-size: clamp(30px, 8.4vw, 50px); }
 
-/* Departures: four sample sessions on the board's black face, one moving on every few seconds. */
+/* Departures: five sample sessions on the board's black face, one moving on every few seconds. */
 .departures { background: #0c0d10; border-radius: 12px; padding: 14px 16px 16px; margin: 0 0 44px; overflow-x: auto; clear: right; }
 .departures header { display: flex; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 11px;
   letter-spacing: .14em; color: #f5c84b; margin-bottom: 10px; }
@@ -218,12 +218,13 @@ footer p { margin: 0; font-size: 11.5px; }
 
   <div class="mark"><span class="flaps" role="img" aria-label="Topside">TOPSIDE</span></div>
 
-  <section class="departures" aria-label="Departures: four sample sessions">
+  <section class="departures" aria-label="Departures: five sample sessions">
     <header>DEPARTURES <span>SAMPLE SESSIONS</span></header>
     <div class="row"><span class="flaps code waiting" data-length="3">CLD</span><span class="flaps name" data-length="12">checkout</span><span class="flaps status waiting" data-length="8">WAITING</span><span class="flaps age" data-length="3">2M</span></div>
     <div class="row"><span class="flaps code working" data-length="3">CDX</span><span class="flaps name" data-length="12">docs</span><span class="flaps status working" data-length="8">BOARDING</span><span class="flaps age" data-length="3">NOW</span></div>
     <div class="row"><span class="flaps code done" data-length="3">PI</span><span class="flaps name" data-length="12">infra</span><span class="flaps status done" data-length="8">ARRIVED</span><span class="flaps age" data-length="3">5M</span></div>
     <div class="row"><span class="flaps code parked" data-length="3">OMP</span><span class="flaps name" data-length="12">webapp</span><span class="flaps status parked" data-length="8">PARKED</span><span class="flaps age" data-length="3">12M</span></div>
+    <div class="row"><span class="flaps code working" data-length="3">OPC</span><span class="flaps name" data-length="12">api</span><span class="flaps status working" data-length="8">BOARDING</span><span class="flaps age" data-length="3">1M</span></div>
   </section>
 
   <aside class="note intro"><b>tl;dr</b>This margin is the short version. Skim it and skip the letter, I won't know.</aside>
@@ -290,7 +291,7 @@ footer p { margin: 0; font-size: 11.5px; }
 
   <h2>How it works</h2>
   <aside class="note"><b>Wiring</b>Hooks run the app's binary, which writes JSON to a Unix socket. SQLite on disk. No daemon, no account, no other socket. <a href="docs/#agents">What each agent gets</a>.</aside>
-  <p>The design is boring on purpose. Nothing runs beside the app and nothing leaves the machine. Each agent's hook starts the app's own binary in hook mode, which writes one JSON message to a Unix socket and exits. Sessions live in SQLite under <code>~/Library/Application Support/Topside</code>.</p>
+  <p>The design is boring on purpose. Nothing runs beside the app, and nothing leaves the machine unless you're on OpenCode Go, where the plugin asks opencode.ai for your limits. Each agent's hook starts the app's own binary in hook mode, which writes one JSON message to a Unix socket and exits. Sessions live in SQLite under <code>~/Library/Application Support/Topside</code>.</p>
   <aside class="note"><b>Your config</b>Installing hooks keeps the ones you had and backs the file up first. With the app closed, the agents ask in the terminal as before.</aside>
   <p>Installing the hooks adds eight entries to <code>~/.claude/settings.json</code>, leaves yours alone, and backs the file up first, because I've had a tool helpfully rewrite my config too. Quit Topside and the agents go back to asking in the terminal, as if it had never been there.</p>
 
@@ -311,6 +312,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <li>When a session's context passes 20%, a card says so after its turn, and Compact types <code>/compact</code> for you. Every agent, not just Claude Code.</li>
         <li>OpenCode joins as the fifth agent. Allow, Always, Deny and its questions all work from the notch.</li>
         <li>The header says what a pay-per-token session has cost, like <code>$0.42 · 182K</code>, or shows OpenCode Go's limits. Restarting the app no longer blanks it.</li>
+        <li>Always prints the rule it would save under the request, so you know what you're agreeing to before you press it.</li>
         <li>A session Orca reopens shows up right away.</li>
       </ul>
       <a href="https://github.com/ducban/topside/releases">Release notes</a>
