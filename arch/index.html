@@ -310,7 +310,7 @@ footer .badge .dark { display: none; }
 
   <h2>Install</h2>
   <div class="cmd"><code>sudo pacman -S nodejs npm quickshell</code><button type="button">copy</button></div>
-  <div class="cmd"><code>sudo npm install -g topside-arch</code><button type="button">copy</button></div>
+  <div class="cmd"><code>sudo npm install -g topside-arch</code><button type="button" data-umami-event="copy install">copy</button></div>
   <p>Node 26 or later. Then, as yourself rather than root:</p>
   <div class="cmd"><code>topside setup</code><button type="button">copy</button></div>
   <aside class="note"><b>After setup</b>For Codex, run <code>/hooks</code> once and trust the entries. Restart an open omp or OpenCode session; in pi, <code>/reload</code>.</aside>
@@ -329,7 +329,7 @@ footer .badge .dark { display: none; }
     Topside for Arch Linux <span data-version="arch">0.5.4</span> · <a href="../">Topside for Mac</a> · <a href="https://www.npmjs.com/package/topside-arch">npm</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a><br>
     MIT license. The agents' logos belong to their owners and only say which agent is running.
     <a class="badge" hidden target="_blank" rel="noopener"><img class="light" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=light"><img class="dark" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=dark"></a>
-    This page counts its readers with Cloudflare Web Analytics, which sets no cookies and doesn't follow you anywhere, and once the launch is public it loads one badge image from Product Hunt. The app counts nothing.
+    This page counts its readers with Cloudflare Web Analytics and Umami, neither of which sets cookies or follows you anywhere, and once the launch is public it loads one badge image from Product Hunt. The app counts nothing.
   </footer>
 </main>
 
@@ -442,5 +442,6 @@ document.querySelectorAll(".cmd button").forEach(button => button.addEventListen
 }));
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9d61106f8c8e4b3e867e238ef672aa42"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Umami --><script defer src="https://cloud.umami.is/script.js" data-website-id="28bb9176-adaf-41a6-8e86-ddf7b6ce1cc5"></script>
 </body>
 </html>

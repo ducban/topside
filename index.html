@@ -330,7 +330,7 @@ footer .badge .dark { display: none; }
   <p>Installing the hooks adds eight entries to <code>~/.claude/settings.json</code>, leaves yours alone, and backs the file up first, because I've had a tool helpfully rewrite my config too. Quit Topside and the agents go back to asking in the terminal, as if it had never been there.</p>
 
   <h2>Install</h2>
-  <div class="cmd"><code>curl -fsSL https://topside.ducban.com/install.sh | sh</code><button type="button">copy</button></div>
+  <div class="cmd"><code>curl -fsSL https://topside.ducban.com/install.sh | sh</code><button type="button" data-umami-event="copy install">copy</button></div>
   <p>macOS 14 or later, Apple silicon. No <code>sudo</code>.</p>
   <aside class="note"><b>Why a script</b>No Developer ID, so the app is ad-hoc signed. A browser download gets quarantined; curl's doesn't. The script checks a SHA-256 and the signature.</aside>
   <p>You're right to squint at <code>curl | sh</code>. The reason is dull: I have no Developer ID, so the app is ad-hoc signed, and a zip that arrives through a browser gets quarantined and refused by Gatekeeper. <code>curl</code> doesn't set that flag. <a href="install.sh">The script</a> is under 90 lines, so read it first. It checks the download against its SHA-256, verifies the signature, and swaps the new app in only once the copy is whole.</p>
@@ -363,7 +363,7 @@ footer .badge .dark { display: none; }
     <div class="links"><b>Topside <span data-version="mac">0.4.13</span></b><span>macOS 14 or later, Apple silicon</span></div>
     <nav class="links" aria-label="Elsewhere"><a href="docs/">Docs</a><a href="arch/">Arch Linux</a><a href="https://github.com/ducban/topside/releases">Releases</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
     <a class="badge" hidden target="_blank" rel="noopener"><img class="light" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=light"><img class="dark" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=dark"></a>
-    <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies, and once the launch is public it loads one badge image from Product Hunt; the app counts nothing.</p>
+    <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics and Umami, neither of which sets cookies, and once the launch is public it loads one badge image from Product Hunt; the app counts nothing.</p>
   </footer>
 </main>
 
@@ -472,5 +472,6 @@ document.querySelectorAll(".cmd button").forEach(button => button.addEventListen
 }));
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9d61106f8c8e4b3e867e238ef672aa42"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Umami --><script defer src="https://cloud.umami.is/script.js" data-website-id="28bb9176-adaf-41a6-8e86-ddf7b6ce1cc5"></script>
 </body>
 </html>

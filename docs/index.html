@@ -169,7 +169,7 @@ footer p { margin: 0; font-size: 11.5px; }
       <section id="install">
         <h2>Install</h2>
         <p>macOS 14 or later, Apple silicon. No <code>sudo</code>.</p>
-        <div class="cmd"><code>curl -fsSL https://topside.ducban.com/install.sh | sh</code><button type="button">copy</button></div>
+        <div class="cmd"><code>curl -fsSL https://topside.ducban.com/install.sh | sh</code><button type="button" data-umami-event="copy install">copy</button></div>
         <p>The script downloads the latest release from GitHub, checks it against its SHA-256, verifies the signature, and copies the app beside any copy already in <code>/Applications</code>. The swap happens once the new copy is whole, so a run that fails leaves you the app you had. <a href="../install.sh">Read it first</a>; it's under 90 lines.</p>
         <p>Topside opens when the script finishes. It has no Dock icon and no menu bar item. If you're hunting for it, look up: it's the black pill at the notch, or at the top center of a display that has none.</p>
 
@@ -380,7 +380,7 @@ footer p { margin: 0; font-size: 11.5px; }
       <footer>
         <div class="links"><b>Topside <span data-version="mac">0.4.13</span></b><span>macOS 14 or later, Apple silicon</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../arch/">Arch Linux</a><a href="https://github.com/ducban/topside/releases">Releases</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
-        <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
+        <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics and Umami, neither of which sets cookies; the app counts nothing.</p>
       </footer>
     </main>
   </div>
@@ -413,5 +413,6 @@ const watcher = new IntersectionObserver(entries => {
 document.querySelectorAll("section[id]").forEach(section => watcher.observe(section));
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9d61106f8c8e4b3e867e238ef672aa42"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Umami --><script defer src="https://cloud.umami.is/script.js" data-website-id="28bb9176-adaf-41a6-8e86-ddf7b6ce1cc5"></script>
 </body>
 </html>
