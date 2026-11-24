@@ -156,7 +156,7 @@ img { max-width: 100%; display: block; }
 .launch .waiting { color: #ff8c29; }
 .launch .done { color: #40d96b; }
 .launch .clock { display: inline-flex; align-items: center; gap: 8px; flex: none; color: #8e94a6; }
-.launch .clock[hidden] { display: none; }
+.launch .clock[hidden], .launch .status[hidden] { display: none; }
 .launch .clock .flaps { color: #d6dae4; }
 .launch .line { flex: 1; min-width: 200px; }
 .launch .line b { color: #f5c84b; font-weight: 600; }
@@ -372,8 +372,8 @@ const clock = strip.querySelector(".clock"), flight = strip.querySelector(".stat
 const liftoff = Date.UTC(2026, 10, 25, 8), day = 86400000;
 const post = "https://www.producthunt.com/posts/topside";
 const phases = [
-  { until: liftoff, word: "BOARDING", tone: "working", unit: "to launch", line: "<b>Product Hunt</b> Topside launches there on Wed 25 Nov, at midnight Pacific." },
-  { until: liftoff + day, word: "AIRBORNE", tone: "waiting", unit: "left today", line: "<b>Product Hunt</b> Topside is up there today. Come and tell me what's broken." },
+  { until: liftoff, unit: "to launch", line: "<b>Product Hunt</b> Topside launches there on Wed 25 Nov, at midnight Pacific." },
+  { until: liftoff + day, unit: "left today", line: "<b>Product Hunt</b> Topside is up there today. Come and tell me what's broken." },
   { until: liftoff + 14 * day, word: "LANDED", tone: "done", line: "<b>Product Hunt</b> Topside launched there on 25 Nov. The comments are still open." },
 ];
 let phase = null;
@@ -395,12 +395,14 @@ function announce(next, now) {
   }
   strip.hidden = !phase;
   if (!phase) return;
-  flight.className = "flaps status " + phase.tone;
+  flight.className = "flaps status " + (phase.tone || "");
   strip.querySelector(".line").innerHTML = phase.line;
   strip.querySelector(".unit").textContent = phase.unit || "";
   clock.hidden = !phase.unit;
   if (now >= liftoff) strip.href = post + "?utm_source=topside.ducban.com";
-  if (flight.children.length) riffle(flight, phase.word); else flight.textContent = phase.word;
+  flight.hidden = !phase.word;
+  if (!phase.word) flight.textContent = "";
+  else if (flight.children.length) riffle(flight, phase.word); else flight.textContent = phase.word;
   if (phase.unit) { if (!clock.firstChild.children.length) riffle(clock.firstChild, ""); tick(); }
 }
 tick();
