@@ -234,7 +234,7 @@ footer p { margin: 0; font-size: 11.5px; }
 
         <h3>OpenCode</h3>
         <p>OpenCode loads plugins, not hooks, so Topside adds one file, marked and removed the same way as pi's. It goes under <code>$XDG_CONFIG_HOME/opencode/plugins</code> when that's set. OpenCode reads plugins when it starts, so a session that was already open says "Not tracked yet" until you restart it.</p>
-        <p>Unlike pi, OpenCode asks for permission itself, about whatever its <code>permission</code> config sets to <code>ask</code>. Its prompt stays up while the island asks too, and the first answer wins. You get Allow, Deny and Always; Always covers the pattern OpenCode offers, <code>git status *</code> say, in that project until OpenCode restarts. A question with options comes up on the question card. <code>opencode run</code> and <code>opencode serve</code> don't show.</p>
+        <p>Unlike pi, OpenCode asks for permission itself, about whatever its <code>permission</code> config sets to <code>ask</code>. Its prompt stays up while the island asks too, and the first answer wins. You get Allow, Deny and Always; Always covers the pattern OpenCode offers, <code>git status *</code> say, in that project until OpenCode restarts. A question with options comes up on the question card. <code>opencode run</code>, <code>serve</code>, <code>web</code>, <code>acp</code> and <code>attach</code> don't show.</p>
         <p>OpenCode has moved its plugin API before. If a version stops taking Topside's answers, its requests don't open on the island at all: the row says it's waiting and you answer in OpenCode. It bills by the token, so the header shows cost and tokens; on OpenCode Free or Zen, which cost nothing, just the tokens.</p>
         <p>OpenCode Go turns cost nothing until you hit a limit, so the limits are the number worth watching. On a Go model the header shows Go's five-hour and weekly windows, the same way it shows Claude's. After each turn the plugin asks opencode.ai with the <code>opencode-go</code> key OpenCode saved when you logged in. That key goes to opencode.ai and nowhere else.</p>
         <p><strong>Help wanted.</strong> Whoever writes Topside doesn't pay for Go. This part was built from OpenCode's own source and tested against a fake server, never a real account. If you're on Go, finish a turn, compare the header with your Console, and <a href="https://github.com/ducban/topside/issues/new?title=OpenCode%20Go%20limits">open an issue</a> to say whether they match. "It works" is a useful report too.</p>
@@ -275,7 +275,8 @@ footer p { margin: 0; font-size: 11.5px; }
             <tr><td>Finished turn</td><td>A turn ends</td><td>The last reply</td></tr>
           </tbody>
         </table></div>
-        <p>On the board these come down from the notch with keys to press; in the kitchen they print as order tickets you stamp. Claude Code's permission requests have two more answers. "Always" sends back the rule Claude Code itself suggests: accept edits for the session, or allow that exact command in <code>.claude/settings.local.json</code>. It's missing when Claude Code suggests nothing. "Auto mode" switches the session to <code>auto</code>.</p>
+        <p>On the board these come down from the notch with keys to press; in the kitchen they print as order tickets you stamp. Claude Code's permission requests have two more answers. "Always" sends back the rule Claude Code itself suggests: accept edits for the session, or allow that exact command in <code>.claude/settings.local.json</code>. It's missing when Claude Code suggests nothing. "Auto mode" switches the session to <code>auto</code>. OpenCode offers an Always too, described under <a href="#agents">Agents</a>.</p>
+        <p>Whenever Always is on offer, the rule it would save is printed under the request, such as "Always allow Bash(git status *) in this project until OpenCode restarts". A long rule scrolls, so you can read it to the last word before you press anything.</p>
         <p>A request stays until it's answered, on the island or in the terminal. If the session's terminal is already in front when a turn ends, nothing opens: you're looking at it.</p>
 
         <h3>Keys</h3>
@@ -338,7 +339,7 @@ footer p { margin: 0; font-size: 11.5px; }
           <figcaption>Integrations. Each switch says what it will touch before you flip it.</figcaption>
         </figure>
         <figure>
-          <img src="../img/settings-notifications.png?v=3" width="1280" height="736" loading="lazy" alt="The Notifications tab on the board's face: Open cards by themselves, Remind me about unanswered requests set to 2 minutes, Sounds with Glass for needs you and Tink for finished, and Style sounds.">
+          <img src="../img/settings-notifications.png?v=4" width="1280" height="862" loading="lazy" alt="The Notifications tab on the board's face: Open cards by themselves, Remind me about unanswered requests set to 2 minutes, Warn when a session's context fills up set to 20%, Sounds with Glass for needs you and Tink for finished, and Style sounds.">
           <figcaption>Notifications. A hidden folder or prompt comes back with its ×.</figcaption>
         </figure>
         <figure>
