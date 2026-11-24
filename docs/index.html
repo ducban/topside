@@ -242,7 +242,7 @@ footer p { margin: 0; font-size: 11.5px; }
         <h3>Plan usage</h3>
         <p>The header shows the limits of the session you've picked, as <code>5H 39%  7D 61%</code>, going orange at 50% and red at 80%. Claude Code's come through its status line, which is why that switch exists; switching off puts your original status line back. Codex's are read from its own session file and need no switch. OpenCode Go's are fetched after each turn, as described above under OpenCode.</p>
         <h3>When the context fills up</h3>
-        <p>Once a session goes past 20% of its context window, the island opens a card when its turn ends. That's any agent: Claude Code, Codex, pi, omp or OpenCode. It has three keys: Later (<kbd>esc</kbd>), Jump (<kbd>^J</kbd>) and Compact (<kbd>^Y</kbd>). Compact jumps to that session's terminal and types <code>/compact</code> for you in tmux, WezTerm, Orca, iTerm2 and Terminal.app. Any other terminal gets it on the clipboard to paste. Each session gets one card, and another only after it compacts. You can move the line or turn the card off in Notifications.</p>
+        <p>Once a session has used 200K tokens, or 60% of its context window if that comes first, the island opens a card when its turn ends. That's any agent: Claude Code, Codex, pi, omp or OpenCode. It has three keys: Later (<kbd>esc</kbd>), Jump (<kbd>^J</kbd>) and Compact (<kbd>^Y</kbd>). Compact jumps to that session's terminal and types <code>/compact</code> for you in tmux, WezTerm, Orca, iTerm2 and Terminal.app. Any other terminal gets it on the clipboard to paste. Each session gets one card, and another only after it compacts. You can move the line or turn the card off in Notifications.</p>
         <p>Where the number comes from depends on the agent. Claude Code's comes through the same status line wrapper as plan usage, so that switch has to be on. Codex's is read from its session file. pi, omp and OpenCode send theirs at the end of each turn, and they only start after they load the new extension or plugin, so run <code>/reload</code> in pi and restart omp and OpenCode once after updating. Codex's footer takes a fixed amount off before it says "% left", so the two numbers won't quite match.</p>
       </section>
 
@@ -328,7 +328,7 @@ footer p { margin: 0; font-size: 11.5px; }
           <thead><tr><th>Tab</th><th>What's in it</th></tr></thead>
           <tbody>
             <tr><td>General</td><td>"Open at login". "Sessions shown", 1 to 7, 5 unless you change it.</td></tr>
-            <tr><td>Notifications</td><td>"Open cards by themselves". "Remind me about unanswered requests": once, after 1 to 10 minutes. "Warn when a session's context fills up": 5 to 90% used, 20 to start, for every agent. "Sounds", one for a session that needs you and one for a session that finished, and under it "Style sounds" for Board and Kitchen. The folders and prompts you've hidden, with a way back.</td></tr>
+            <tr><td>Notifications</td><td>"Open cards by themselves". "Remind me about unanswered requests": once, after 1 to 10 minutes. "Warn when a session's context fills up": 100K to 400K tokens used, 200K to start, or 60% of the window if that comes first, for every agent. "Sounds", one for a session that needs you and one for a session that finished, and under it "Style sounds" for Board and Kitchen. The folders and prompts you've hidden, with a way back.</td></tr>
             <tr><td>Integrations</td><td>The switches from <a href="#agents">Agents</a>, "Ask before risky commands", and "Use this copy" when a hook points at another copy of the app.</td></tr>
             <tr><td>Appearance</td><td><a href="#styles">Style</a>: Board or Kitchen. Text size, 10 to 14 pt, for requests, prompts and replies, and the tickets on the rail; the board's flaps keep their size. No theme or light mode: the board is black and the kitchen's paper is paper.</td></tr>
             <tr><td>About</td><td>The version, which copy is running and where the data folder is. It changes nothing.</td></tr>
@@ -339,7 +339,7 @@ footer p { margin: 0; font-size: 11.5px; }
           <figcaption>Integrations. Each switch says what it will touch before you flip it.</figcaption>
         </figure>
         <figure>
-          <img src="../img/settings-notifications.png?v=4" width="1280" height="862" loading="lazy" alt="The Notifications tab on the board's face: Open cards by themselves, Remind me about unanswered requests set to 2 minutes, Warn when a session's context fills up set to 20%, Sounds with Glass for needs you and Tink for finished, and Style sounds.">
+          <img src="../img/settings-notifications.png?v=5" width="1280" height="862" loading="lazy" alt="The Notifications tab on the board's face: Open cards by themselves, Remind me about unanswered requests set to 2 minutes, Warn when a session's context fills up set to 200K, Sounds with Glass for needs you and Tink for finished, and Style sounds.">
           <figcaption>Notifications. A hidden folder or prompt comes back with its ×.</figcaption>
         </figure>
         <figure>
@@ -378,7 +378,7 @@ footer p { margin: 0; font-size: 11.5px; }
       </section>
 
       <footer>
-        <div class="links"><b>Topside <span data-version="mac">0.4.11</span></b><span>macOS 14 or later, Apple silicon</span></div>
+        <div class="links"><b>Topside <span data-version="mac">0.4.12</span></b><span>macOS 14 or later, Apple silicon</span></div>
         <nav class="links" aria-label="Elsewhere"><a href="../">The letter</a><a href="../arch/">Arch Linux</a><a href="https://github.com/ducban/topside/releases">Releases</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
         <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
       </footer>

@@ -40,7 +40,7 @@
   "image": "https://topside.ducban.com/og.png",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "macOS 14 or later, Apple silicon",
-  "softwareVersion": "0.4.11",
+  "softwareVersion": "0.4.12",
   "author": { "@type": "Person", "name": "Nguyen Duc Ban", "url": "https://ducban.com" }
 }
 </script>
@@ -263,8 +263,8 @@ footer p { margin: 0; font-size: 11.5px; }
   <aside class="note" style="--tone: var(--done)"><b>Jump</b><kbd>^J</kbd> or a click brings the session's pane forward in WezTerm, Orca, iTerm2, Terminal.app and tmux.</aside>
   <p>For the times you do want the tab, <kbd>^J</kbd> or a click takes you there. Topside finds it the way you'd debug it: up the session's process tree until it hits a terminal, then the pane, in WezTerm, Orca, iTerm2, Terminal.app and tmux. Ghostty gets the window and an apology, since it has no way to pick a tab from outside yet.</p>
 
-  <aside class="note" style="--tone: var(--waiting)"><b>Compact</b>Past 20% of its context, a session gets a card when its turn ends. <kbd>^Y</kbd> types <code>/compact</code> into its terminal. Move the line in Settings → Notifications.</aside>
-  <p>Sessions also put on weight. Every turn carries the whole conversation along, and nobody looks at the scale until the agent compacts on its own at the worst moment. So once a session passes 20% of its context window, Topside waits for the turn to end and puts up a card with the count. The board calls it HEAVY, like a bag over the allowance. <kbd>^Y</kbd> jumps to the terminal and types <code>/compact</code> for you in tmux, WezTerm, Orca, iTerm2 and Terminal.app; anywhere else it goes on the clipboard. <kbd>esc</kbd> means later, and later lasts until the session compacts, so it asks once. All five agents get it.</p>
+  <aside class="note" style="--tone: var(--waiting)"><b>Compact</b>Past 200K tokens, or 60% of its context if that comes first, a session gets a card when its turn ends. <kbd>^Y</kbd> types <code>/compact</code> into its terminal. Move the line in Settings → Notifications.</aside>
+  <p>Sessions also put on weight. Every turn carries the whole conversation along, and nobody looks at the scale until the agent compacts on its own at the worst moment. So once a session has used 200K tokens, or 60% of its window if that comes first, Topside waits for the turn to end and puts up a card with the count. The board calls it HEAVY, like a bag over the allowance. <kbd>^Y</kbd> jumps to the terminal and types <code>/compact</code> for you in tmux, WezTerm, Orca, iTerm2 and Terminal.app; anywhere else it goes on the clipboard. <kbd>esc</kbd> means later, and later lasts until the session compacts, so it asks once. All five agents get it.</p>
 
   <figure>
     <div class="shot whole"><img src="img/context.png" width="1400" height="421" loading="lazy" alt="The context card on the Board style: flaps read 10:10 WEBAPP with HEAVY in orange, then CONTEXT 21% USED 214K OF 1M, over the session's prompt and Later, Jump and Compact keys."></div>
@@ -307,9 +307,9 @@ footer p { margin: 0; font-size: 11.5px; }
 
   <div class="cards">
     <section class="card" style="--tone: var(--working)">
-      <h3>What's new <span>up to <span data-version="mac">0.4.11</span></span></h3>
+      <h3>What's new <span>up to <span data-version="mac">0.4.12</span></span></h3>
       <ul>
-        <li>When a session's context passes 20%, a card says so after its turn, and Compact types <code>/compact</code> for you. Every agent, not just Claude Code.</li>
+        <li>When a session's context passes 200K tokens, or 60% of its window, a card says so after its turn, and Compact types <code>/compact</code> for you. Every agent, not just Claude Code.</li>
         <li>OpenCode joins as the fifth agent. Allow, Always, Deny and its questions all work from the notch.</li>
         <li>The header says what a pay-per-token session has cost, like <code>$0.42 · 182K</code>, or shows OpenCode Go's limits. Restarting the app no longer blanks it.</li>
         <li>Always prints the rule it would save under the request, so you know what you're agreeing to before you press it.</li>
@@ -326,7 +326,7 @@ footer p { margin: 0; font-size: 11.5px; }
   </div>
 
   <footer>
-    <div class="links"><b>Topside <span data-version="mac">0.4.11</span></b><span>macOS 14 or later, Apple silicon</span></div>
+    <div class="links"><b>Topside <span data-version="mac">0.4.12</span></b><span>macOS 14 or later, Apple silicon</span></div>
     <nav class="links" aria-label="Elsewhere"><a href="docs/">Docs</a><a href="arch/">Arch Linux</a><a href="https://github.com/ducban/topside/releases">Releases</a><a href="https://github.com/ducban/topside/issues">Report a bug</a><a href="https://ducban.com">ducban.com</a></nav>
     <p>Built on agent-notch (MIT). The agents' logos belong to their owners and only say which agent is running. This page counts readers with Cloudflare Web Analytics, which sets no cookies; the app counts nothing.</p>
   </footer>
