@@ -365,7 +365,7 @@ function riffle(el, text) {
   });
 }
 // Product Hunt. The launch goes public on 25 Nov 2026 at 00:00 Pacific. Until then the strip counts
-// down to it and has nowhere to link to; on launch day it counts what's left of the day; two weeks
+// down to it and has nowhere to link to; on launch day it reads AIRBORNE; two weeks
 // later it takes itself down. The footer's badge comes up at the launch and stays.
 const strip = document.querySelector(".launch"), badge = document.querySelector("footer .badge");
 const clock = strip.querySelector(".clock"), flight = strip.querySelector(".status");
@@ -373,7 +373,7 @@ const liftoff = Date.UTC(2026, 10, 25, 8), day = 86400000;
 const post = "https://www.producthunt.com/posts/topside";
 const phases = [
   { until: liftoff, unit: "to launch", line: "<b>Product Hunt</b> Topside launches there on Wed 25 Nov, at midnight Pacific." },
-  { until: liftoff + day, unit: "left today", line: "<b>Product Hunt</b> Topside is up there today. Come and tell me what's broken." },
+  { until: liftoff + day, word: "AIRBORNE", tone: "waiting", line: "<b>Product Hunt</b> Topside is up there today. Come and tell me what's broken." },
   { until: liftoff + 14 * day, word: "LANDED", tone: "done", line: "<b>Product Hunt</b> Topside launched there on 25 Nov. The comments are still open." },
 ];
 let phase = null;
