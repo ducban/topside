@@ -209,7 +209,7 @@ footer p { margin: 0; font-size: 11.5px; }
             <tr><td><code>~/.config/topside/config.json</code></td><td><code>pill</code>, <code>gate</code></td><td>The pill's place, style and text size, and the risky-command gate.</td></tr>
           </tbody>
         </table></div>
-        <p>A plugin folder that setup finds but didn't write is moved to <code>~/.local/state/topside/</code>, never deleted. <code>TOPSIDE_SOCKET</code>, <code>TOPSIDE_DB</code> and <code>TOPSIDE_CONFIG</code> move the socket, the database and the config. Nothing leaves the machine.</p>
+        <p>A plugin folder that setup finds but didn't write is moved to <code>~/.local/state/topside/</code>, never deleted. <code>TOPSIDE_SOCKET</code>, <code>TOPSIDE_DB</code> and <code>TOPSIDE_CONFIG</code> move the socket, the database and the config. Nothing leaves the machine, with one exception: after each turn of an OpenCode Go session the plugin asks opencode.ai for your plan limits, with the key OpenCode already saved.</p>
       </section>
 
       <section id="agents">
@@ -245,7 +245,7 @@ footer p { margin: 0; font-size: 11.5px; }
           <tbody>
             <tr><td><kbd>^Y</kbd></td><td>Allow the first request</td></tr>
             <tr><td><kbd>^N</kbd></td><td>Deny it</td></tr>
-            <tr><td><kbd>^A</kbd></td><td>Always, when Claude Code offers it</td></tr>
+            <tr><td><kbd>^A</kbd></td><td>Always, when Claude Code or OpenCode offers it</td></tr>
             <tr><td><kbd>^1</kbd>…<kbd>^9</kbd></td><td>Pick an option of the first question</td></tr>
             <tr><td><kbd>^J</kbd></td><td>Jump to the session's terminal</td></tr>
             <tr><td><kbd>esc</kbd></td><td>Close, never answering anything</td></tr>

@@ -270,8 +270,8 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-
   <p>When you'd rather answer in the terminal, <kbd>^J</kbd> or a click takes you there. Topside walks up the session's process tree to its window, focuses it through <code>hyprctl</code>, and picks the tab in WezTerm, Orca or tmux. That part needs Hyprland. Other compositors still get the list and the answers.</p>
 
   <h2>How it works</h2>
-  <aside class="note"><b>Wiring</b>Hooks → a <code>systemd --user</code> daemon → a Unix socket → your bar. SQLite on disk. Nothing leaves the machine.</aside>
-  <p>Each agent's hook runs <code>topside hook</code>, which hands one JSON message to a small daemon over a Unix socket. The daemon runs as a <code>systemd --user</code> service and keeps sessions in SQLite under <code>~/.local/state/topside</code>. The bar draws what the daemon says. Nothing leaves the machine, and stopping the daemon puts every agent back to asking in the terminal.</p>
+  <aside class="note"><b>Wiring</b>Hooks → a <code>systemd --user</code> daemon → a Unix socket → your bar. SQLite on disk. No account, no other socket.</aside>
+  <p>Each agent's hook runs <code>topside hook</code>, which hands one JSON message to a small daemon over a Unix socket. The daemon runs as a <code>systemd --user</code> service and keeps sessions in SQLite under <code>~/.local/state/topside</code>. The bar draws what the daemon says. Nothing leaves the machine unless you're on OpenCode Go, where the plugin asks opencode.ai for your limits. Stopping the daemon puts every agent back to asking in the terminal.</p>
   <aside class="note"><b>Your config</b>Installing hooks keeps yours and backs the file up first. <code>topside hooks uninstall</code> takes them out.</aside>
   <p>Unlike the Mac app, this one is MIT, and the code you install is the code that runs: plain JavaScript and QML under <code>/usr/lib/node_modules/topside-arch</code>. A tool that reads your prompts should be one you can read.</p>
 
