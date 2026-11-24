@@ -33,7 +33,7 @@ The Mac app's source is closed. This repo holds what's public:
 | Path | What |
 |---|---|
 | `index.html`, `img/`, `og.png` | the site at topside.ducban.com (GitHub Pages serves the repo root). Its header draws the logo and a DEPARTURES strip of four sample sessions as split flaps in HTML and CSS, riffled by the page's script (still with reduced motion); the strip is sample data, never anyone's sessions. Under it, a Product Hunt strip the script shows until 9 Dec 2026 (two weeks after the launch of 25 Nov 2026, 00:00 Pacific): it counts down to the launch in flaps, counts what's left of launch day, and links only once the launch is public; after that date, delete the strip's markup and CSS and cut the script down to the badge. The footer carries Product Hunt's own badge (an image from `api.producthunt.com`, post 1328791, light or dark with the page's theme), which the script shows from the launch on and which stays; it's the one thing the page loads from Product Hunt, and the footer's small print says so |
-| `arch/`, `og-arch.png` | the Arch Linux page at topside.ducban.com/arch/, and its docs at `arch/docs/` |
+| `arch/`, `og-arch.png` | the Arch Linux page at topside.ducban.com/arch/, and its docs at `arch/docs/`. The page carries the same Product Hunt strip and footer badge as `index.html`, to be cut down after 9 Dec 2026 in the same way |
 | `install.sh` | the macOS installer the site points at |
 | `scripts/bump.sh` | `scripts/bump.sh mac\|arch <version>` after a release: rewrites every `<span data-version>` and that page's `softwareVersion`, then lists lines that still name the old version |
 | `meta/og.html` | the source of `og.png`: open it at 1200 by 630 and take a screenshot |
