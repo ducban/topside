@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Topside: every agent, one notch</title>
-<meta name="description" content="An island on the Mac's notch for Claude Code, Codex CLI, pi, omp and OpenCode. See which session wants an answer, give it from the notch, jump to its terminal.">
+<meta name="description" content="Your Mac is an airport and your coding agents are the pilots. Topside is the departure board in the notch for Claude Code, Codex CLI, pi, omp and OpenCode: see who's waiting on you, answer from there, jump to the terminal.">
 <meta name="author" content="Nguyen Duc Ban">
 <link rel="canonical" href="https://topside.ducban.com/">
 <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
 <meta property="og:site_name" content="Topside">
 <meta property="og:title" content="Topside: every agent, one notch">
-<meta property="og:description" content="An island on the Mac's notch for Claude Code, Codex CLI, pi, omp and OpenCode. Coding agents wait in silence; this is where they raise a hand.">
+<meta property="og:description" content="Your Mac is an airport. Your coding agents are the pilots flying your tasks. Topside is the departure board in the notch: who's flying, who's waiting on you, and ^Y to clear one for takeoff.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://topside.ducban.com/">
 <meta property="og:locale" content="en_US">
@@ -22,7 +22,7 @@
 <meta property="og:image:alt" content="Topside's logo on split flaps under the board's pill at the notch, CLD and a flap per session, and the line: Every agent, one notch.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Topside: every agent, one notch">
-<meta name="twitter:description" content="An island on the Mac's notch for Claude Code, Codex CLI, pi, omp and OpenCode.">
+<meta name="twitter:description" content="The departure board in the Mac's notch for Claude Code, Codex CLI, pi, omp and OpenCode.">
 <meta name="twitter:image" content="https://topside.ducban.com/og.png">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
@@ -140,6 +140,20 @@ img { max-width: 100%; display: block; }
 .departures .done { color: #40d96b; }
 .departures .parked { color: #9a9ca6; }
 
+/* The Product Hunt strip: one more row off the board, shown by the page's script from the day the
+   launch was scheduled until two weeks after it. Without the script it stays hidden. */
+.launch { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #0c0d10; border-radius: 12px;
+  padding: 12px 16px; margin: -28px 0 44px; font-family: var(--mono); font-size: 13px; line-height: 1.5;
+  color: #d6dae4; text-decoration: none; clear: right; }
+.launch[hidden] { display: none; }
+.launch .flaps { font-size: 15px; flex: none; }
+.launch .working { color: #6b9aff; }
+.launch .waiting { color: #ff8c29; }
+.launch .done { color: #40d96b; }
+.launch .line { flex: 1; min-width: 200px; }
+.launch .line b { color: #f5c84b; font-weight: 600; }
+.launch[href] .line::after { content: " \2192"; color: #8e94a6; }
+
 p { margin: 0 0 1.1em; text-wrap: pretty; }
 h2 { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
   color: var(--muted); margin: 56px 0 16px; }
@@ -227,12 +241,15 @@ footer p { margin: 0; font-size: 11.5px; }
     <div class="row"><span class="flaps code working" data-length="3">OPC</span><span class="flaps name" data-length="12">api</span><span class="flaps status working" data-length="8">BOARDING</span><span class="flaps age" data-length="3">1M</span></div>
   </section>
 
+  <a class="launch" hidden><span class="flaps status" data-length="8"></span><span class="line"></span></a>
+
   <aside class="note intro"><b>tl;dr</b>This margin is the short version. Skim it and skip the letter, I won't know.</aside>
   <p>A coding agent is patient in the worst way. It will sit on <code>Allow this command?</code> for as long as it takes, without a sound, in a tab three windows down, while I admire how productive I'm being in another one.</p>
   <p>The agents were never the slow part. I was, and specifically the part of me that had to notice. Checking tabs is polling, and people are bad at polling: we do it constantly and get nothing else done, or we forget and find the question after lunch.</p>
 
   <aside class="note" style="--tone: var(--working)"><b>Watch</b>The pill names the newest session's agent and gives each session a letter: B boarding, W waiting on you, A arrived, P parked. Hover for the board.</aside>
-  <p>So I gave the agents an interrupt line and put it on the one strip of screen nobody was using. The notch already costs every MacBook a rectangle of pixels. Topside moves in there dressed as a departure board. The left side shows the newest session's agent as a flight code, CLD for Claude Code or CDX for Codex. The right side has a flap per session: B is boarding, W is waiting on you, A has arrived. Hover and the whole board comes down; click the pill instead and it stays while the screen dims. The top right of the board shows how much of your plan the picked session has burned. pi, omp and OpenCode bill by the token, so for them it shows the bill.</p>
+  <p>So I gave the agents an interrupt line and put it on the one strip of screen nobody was using. The notch already costs every MacBook a rectangle of pixels. Topside moves in there dressed as a departure board. The casting holds up: your Mac is the airport, the agents are the pilots flying your tasks, and the board says who's in the air and who's holding for you.</p>
+  <p>The left side shows the newest session's agent as a flight code, CLD for Claude Code or CDX for Codex. The right side has a flap per session: B is boarding, W is waiting on you, A has arrived. Hover and the whole board comes down; click the pill instead and it stays while the screen dims. The top right of the board shows how much of your plan the picked session has burned. pi, omp and OpenCode bill by the token, so for them it shows the bill.</p>
 
   <figure>
     <div class="shot whole"><img src="img/pill.png" width="720" height="224" alt="Two pills at the notch. On top, the board's: CLD in orange flaps on the left, and W, B, A, P, B flaps on the right. Below, the kitchen's: an amber light and a red 1 on the left, and five paper stubs on a tiny rail on the right, the orange one hanging lower."></div>
@@ -270,6 +287,9 @@ footer p { margin: 0; font-size: 11.5px; }
     <div class="shot whole"><img src="img/context.png" width="1400" height="421" loading="lazy" alt="The context card on the Board style: flaps read 10:10 WEBAPP with HEAVY in orange, then CONTEXT 21% USED 214K OF 1M, over the session's prompt and Later, Jump and Compact keys."></div>
     <figcaption>21% of a million tokens. Compact, or carry it a little longer.</figcaption>
   </figure>
+
+  <aside class="note"><b>Who it's for</b>Two or more terminal agents at once, and you in another window. One agent that you sit and watch doesn't need this.</aside>
+  <p>Who is this for? Anyone who runs two or more terminal agents at once and works in another window while the agents think. If you run one agent and watch it, close this tab: its own prompt is enough. Topside reads the five agents above and nothing else, all of them terminal ones, so an agent that lives inside an editor won't show up either.</p>
 
   <h2>Styles</h2>
   <aside class="note" style="--tone: var(--waiting)"><b>Kitchen</b>Settings → Appearance → Style. Requests print as order tickets; stamp ALLOW or DENY. The list is a rail: five tickets on magnets, the rest on a spike.</aside>
@@ -319,7 +339,7 @@ footer p { margin: 0; font-size: 11.5px; }
     </section>
     <section class="card" style="--tone: var(--done)">
       <h3>Also on Arch Linux <span><span data-version="arch">0.5.4</span></span></h3>
-      <p>The same island in your Quickshell bar: on SekaiPop, DankMaterialShell or a pill of its own.</p>
+      <p>The same island on Arch, in the bar you run: DankMaterialShell (DMS), SekaiPop, or a Quickshell pill of its own.</p>
       <p><code>sudo npm install -g topside-arch</code></p>
       <a href="arch/">The Linux letter</a>
     </section>
@@ -368,6 +388,22 @@ function riffle(el, text) {
     for (let s = 0; s < steps; s++) setTimeout(() => paint(cell, s === steps - 1 ? to : LETTERS[Math.floor(Math.random() * 36)]), 200 + i * 18 + s * 55);
   });
 }
+// The Product Hunt strip. The launch goes public on 25 Nov 2026 at 00:00 Pacific, and the strip
+// takes itself down two weeks later. Before the launch it has nowhere to link to.
+const strip = document.querySelector(".launch");
+const liftoff = Date.UTC(2026, 10, 25, 8), day = 86400000, now = Date.now();
+if (now < liftoff + 14 * day) {
+  const [word, tone, line] =
+    now < liftoff ? ["BOARDING", "working", "<b>Product Hunt</b> Topside launches there on Wed 25 Nov, at midnight Pacific."]
+    : now < liftoff + day ? ["AIRBORNE", "waiting", "<b>Product Hunt</b> Topside is up there today. Come and tell me what's broken."]
+    : ["LANDED", "done", "<b>Product Hunt</b> Topside launched there on 25 Nov. The comments are still open."];
+  strip.querySelector(".flaps").textContent = word;
+  strip.querySelector(".flaps").classList.add(tone);
+  strip.querySelector(".line").innerHTML = line;
+  if (now >= liftoff) strip.href = "https://www.producthunt.com/posts/topside";
+  strip.hidden = false;
+}
+
 document.querySelectorAll(".flaps").forEach(el => riffle(el, el.textContent.trim()));
 
 // Every few seconds one departure moves on, while the board is on screen and the tab is in front.

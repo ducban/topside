@@ -32,7 +32,7 @@ The Mac app's source is closed. This repo holds what's public:
 
 | Path | What |
 |---|---|
-| `index.html`, `img/`, `og.png` | the site at topside.ducban.com (GitHub Pages serves the repo root). Its header draws the logo and a DEPARTURES strip of four sample sessions as split flaps in HTML and CSS, riffled by the page's script (still with reduced motion); the strip is sample data, never anyone's sessions |
+| `index.html`, `img/`, `og.png` | the site at topside.ducban.com (GitHub Pages serves the repo root). Its header draws the logo and a DEPARTURES strip of four sample sessions as split flaps in HTML and CSS, riffled by the page's script (still with reduced motion); the strip is sample data, never anyone's sessions. Under it, a Product Hunt strip the script shows until 9 Dec 2026 (two weeks after the launch of 25 Nov 2026, 00:00 Pacific) and links only once the launch is public; after that date, delete the strip's markup, CSS and script |
 | `arch/`, `og-arch.png` | the Arch Linux page at topside.ducban.com/arch/, and its docs at `arch/docs/` |
 | `install.sh` | the macOS installer the site points at |
 | `scripts/bump.sh` | `scripts/bump.sh mac\|arch <version>` after a release: rewrites every `<span data-version>` and that page's `softwareVersion`, then lists lines that still name the old version |
