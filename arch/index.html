@@ -328,7 +328,7 @@ footer .badge .dark { display: none; }
   <footer>
     Topside for Arch Linux <span data-version="arch">0.5.4</span> · <a href="../">Topside for Mac</a> · <a href="https://www.npmjs.com/package/topside-arch">npm</a> · <a href="https://github.com/ducban/topside/issues">report a bug</a><br>
     MIT license. The agents' logos belong to their owners and only say which agent is running.
-    <a class="badge" hidden target="_blank" rel="noopener"><img class="light" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=light"><img class="dark" loading="lazy" width="250" height="54" alt="Topside on Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=dark"></a>
+    <a class="badge" hidden target="_blank" rel="noopener noreferrer"><img class="light" loading="lazy" width="250" height="54" alt="Topside - Every agent, one notch. | Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=light"><img class="dark" loading="lazy" width="250" height="54" alt="Topside - Every agent, one notch. | Product Hunt" data-src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1328791&amp;theme=dark"></a>
     This page counts its readers with Cloudflare Web Analytics and Umami, neither of which sets cookies or follows you anywhere, and once the launch is public it loads one badge image from Product Hunt. The app counts nothing.
   </footer>
 </main>
@@ -370,7 +370,7 @@ function riffle(el, text) {
 const strip = document.querySelector(".launch"), badge = document.querySelector("footer .badge");
 const clock = strip.querySelector(".clock"), flight = strip.querySelector(".status");
 const liftoff = Date.UTC(2026, 10, 25, 8), day = 86400000;
-const post = "https://www.producthunt.com/posts/topside";
+const post = "https://www.producthunt.com/products/topside";
 const phases = [
   { until: liftoff, unit: "to launch", line: "<b>Product Hunt</b> Topside launches there on Wed 25 Nov, at midnight Pacific." },
   { until: liftoff + day, word: "AIRBORNE", tone: "waiting", line: "<b>Product Hunt</b> Topside is up there today. Come and tell me what's broken." },
